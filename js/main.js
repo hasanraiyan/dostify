@@ -78,4 +78,53 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Get all "Talk to Dostify" buttons
+    const talkButtons = document.querySelectorAll('.talk-to-dostify');
+    const chatInterface = document.getElementById('chat-interface');
+
+    // Function to open chat
+    const openDostifyChat = () => {
+        chatWidget.classList.add('active');
+        chatInterface.classList.remove('hidden');
+        chatToggle.classList.add('hidden');
+        // Focus on input field
+        const inputField = document.getElementById('chat-input');
+        if (inputField) {
+            inputField.focus();
+        }
+        // Add welcome message if it's the first time
+        if (!sessionStorage.getItem('welcomed')) {
+            const chat = new Chat();
+            chat.addMessage("👋 Hi there! I'm Dostify, your AI student companion. How can I help you today?", 'ai');
+            sessionStorage.setItem('welcomed', 'true');
+        }
+    };
+
+    // Add click event to all Talk to Dostify buttons
+    talkButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            openDostifyChat();
+            // Smooth scroll to top if needed
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+    // Handle chat toggle button
+    chatToggle.addEventListener('click', () => {
+        openDostifyChat();
+    });
+
+    // Handle close button
+    const closeButton = document.getElementById('close-chat');
+    if (closeButton) {
+        closeButton.addEventListener('click', () => {
+            chatInterface.classList.add('hidden');
+            chatToggle.classList.remove('hidden');
+        });
+    }
+
+    // Initialize chat functionality
+    const chat = new Chat();
 });

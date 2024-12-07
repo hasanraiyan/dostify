@@ -9,6 +9,7 @@ class DostifyChat {
         this.messageHistory = [];
         
         this.initializeEventListeners();
+        this.loadChatHistory();
     }
 
     initializeEventListeners() {
@@ -19,6 +20,16 @@ class DostifyChat {
                 this.chatForm.dispatchEvent(new Event('submit'));
             }
         });
+
+        // Add clear chat button listener
+        const clearChatButton = document.getElementById('clear-chat');
+        if (clearChatButton) {
+            clearChatButton.addEventListener('click', () => {
+                if (confirm('Are you sure you want to clear the chat history?')) {
+                    this.clearChatHistory();
+                }
+            });
+        }
     }
 
     async handleSubmit(e) {
@@ -45,15 +56,64 @@ class DostifyChat {
             });
     }
 
-    addMessage(message, sender, isError = false) {
+    loadChatHistory() {
+        try {
+            const savedMessages = localStorage.getItem('dostifyChatHistory');
+            if (savedMessages) {
+                const messages = JSON.parse(savedMessages);
+                // Clear default welcome message if there's history
+                this.chatMessages.innerHTML = '';
+                messages.forEach(msg => {
+                    this.addMessage(msg.content, msg.sender, msg.isError, false);
+                });
+            }
+        } catch (error) {
+            console.error('Error loading chat history:', error);
+        }
+    }
+
+    saveChatHistory(message, sender, isError = false) {
+        try {
+            const savedMessages = localStorage.getItem('dostifyChatHistory');
+            let messages = savedMessages ? JSON.parse(savedMessages) : [];
+            messages.push({ content: message, sender, isError, timestamp: new Date().toISOString() });
+            
+            // Keep only last 50 messages
+            if (messages.length > 50) {
+                messages = messages.slice(-50);
+            }
+            
+            localStorage.setItem('dostifyChatHistory', JSON.stringify(messages));
+        } catch (error) {
+            console.error('Error saving chat history:', error);
+        }
+    }
+
+    clearChatHistory() {
+        try {
+            localStorage.removeItem('dostifyChatHistory');
+            this.chatMessages.innerHTML = '';
+            // Add back the welcome message
+            this.addMessage("👋 Hi there! I'm Dostify, your AI companion. I'm here to help with your studies, career planning, or just to chat! What's on your mind? 😊", 'ai');
+        } catch (error) {
+            console.error('Error clearing chat history:', error);
+        }
+    }
+
+    addMessage(message, sender, isError = false, saveToHistory = true) {
         const messageDiv = document.createElement('div');
-        messageDiv.className = `flex items-start gap-3 ${sender === 'user' ? 'flex-row-reverse user-message' : 'ai-message'}`;
+        messageDiv.className = `flex items-start gap-3 ${sender === 'user' ? 'flex-row-reverse user-message' : 'ai-message'} ${sender === 'user' ? 'mb-3' : 'mb-[2px]'} w-full`;
         
         // Only add icon for user messages or the first AI message in a sequence
         const lastMessage = this.chatMessages.lastElementChild;
         const isConsecutiveAI = lastMessage && 
             lastMessage.classList.contains('ai-message') && 
             sender === 'ai';
+
+        const messageWrapper = document.createElement('div');
+        messageWrapper.className = isConsecutiveAI 
+            ? 'ml-[3.5rem] mt-[2px] w-full' 
+            : (sender === 'user' ? 'ml-auto' : 'flex-1');
 
         if (!isConsecutiveAI) {
             const iconDiv = document.createElement('div');
@@ -70,27 +130,30 @@ class DostifyChat {
             
             iconDiv.appendChild(icon);
             messageDiv.appendChild(iconDiv);
-        } else {
-            // Add spacing for consecutive AI messages
-            messageDiv.style.marginLeft = '3.5rem';
         }
         
         const messageContent = document.createElement('div');
-        messageContent.className = `rounded-2xl p-4 shadow-sm transition-all ${
+        messageContent.className = `rounded-2xl py-2.5 px-4 shadow-sm transition-all ${
             sender === 'user'
-                ? 'bg-gradient-to-br from-primary to-primary/90 text-white rounded-tr-sm max-w-[85%] hover:shadow-md'
-                : 'bg-white text-gray-700 rounded-tl-sm max-w-[85%] border border-gray-100 hover:shadow-md' +
+                ? 'bg-gradient-to-br from-primary to-primary/90 text-white rounded-tr-sm w-[85%] hover:shadow-md ml-auto'
+                : 'bg-white text-gray-700 rounded-tl-sm w-[85%] border border-gray-100 hover:shadow-md' +
                   (isError ? ' border-red-300 bg-red-50' : '')
         }`;
         
         const messageText = document.createElement('p');
-        messageText.className = 'leading-relaxed';
+        messageText.className = 'leading-relaxed text-[15px]';
         messageText.textContent = message;
         
         messageContent.appendChild(messageText);
-        messageDiv.appendChild(messageContent);
+        messageWrapper.appendChild(messageContent);
+        messageDiv.appendChild(messageWrapper);
         
         this.chatMessages.appendChild(messageDiv);
+        
+        // Save to localStorage if needed
+        if (saveToHistory) {
+            this.saveChatHistory(message, sender, isError);
+        }
         
         // Smooth scroll with animation
         this.chatMessages.scrollTo({

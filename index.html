@@ -374,22 +374,22 @@
         <div id="chat-interface" 
              class="hidden fixed sm:absolute bottom-0 right-0 w-full sm:w-[400px] h-[100vh] sm:h-[650px] bg-white sm:rounded-2xl shadow-2xl border-0 sm:border border-accent/10 flex flex-col overflow-hidden backdrop-blur-lg">
             <!-- Chat Header -->
-            <div class="p-5 bg-gradient-to-r from-accent to-accent/90 sm:rounded-t-2xl flex items-center gap-4 relative">
-                <div class="absolute inset-0 bg-black/5"></div>
-                <div class="relative">
-                    <div class="w-12 h-12 rounded-full bg-white/95 shadow-inner flex items-center justify-center">
-                        <i class="fas fa-robot text-accent text-xl"></i>
+            <div class="bg-gradient-to-r from-accent via-accent/90 to-accent p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+                        <i class="fas fa-robot text-white text-lg"></i>
                     </div>
-                    <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse"></span>
-                </div>
-                <div class="flex-1 relative">
-                    <h3 class="text-white font-semibold text-lg">Dostify AI</h3>
-                    <p class="text-white/90 text-sm flex items-center gap-2">
-                        <span class="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                        Online and ready to help
-                    </p>
+                    <div>
+                        <h3 class="text-white font-medium">Dostify</h3>
+                        <p class="text-white/80 text-sm">AI Student Companion</p>
+                    </div>
                 </div>
                 <div class="flex gap-2 relative">
+                    <button id="clear-chat" 
+                            class="text-white/90 hover:text-white transition-all duration-300 w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center"
+                            title="Clear Chat History">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
                     <button id="minimize-chat" class="text-white/90 hover:text-white transition-all duration-300 sm:hidden w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center">
                         <i class="fas fa-minus"></i>
                     </button>
@@ -400,37 +400,36 @@
             </div>
 
             <!-- Chat Messages -->
-            <div id="chat-messages" class="flex-1 overflow-y-auto p-5 space-y-6 bg-gradient-to-b from-gray-50/50 to-white/30 backdrop-blur-sm">
+            <div id="chat-messages" class="flex-1 overflow-y-auto px-4 py-6 space-y-4 bg-gradient-to-b from-gray-50/50 to-white/30 backdrop-blur-sm">
                 <!-- Welcome Message -->
                 <div class="flex items-start gap-3 animate-fade-in">
                     <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 border border-accent/20">
                         <i class="fas fa-robot text-accent text-sm"></i>
                     </div>
-                    <div class="bg-white rounded-2xl rounded-tl-sm p-4 shadow-sm max-w-[85%] border border-gray-100">
-                        <p class="text-gray-700 leading-relaxed">Hey there! 👋 I'm Dostify, your AI companion. I'm here to help with your studies, career planning, or just to chat! What's on your mind? 😊</p>
+                    <div class="bg-white rounded-2xl rounded-tl-sm py-3 px-4 shadow-sm max-w-[85%] border border-gray-100">
+                        <p class="text-gray-700 leading-relaxed text-[15px]">Hey there! 👋 I'm Dostify, your AI companion. I'm here to help with your studies, career planning, or just to chat! What's on your mind? 😊</p>
                     </div>
                 </div>
             </div>
 
             <!-- Typing Indicator -->
-            <div id="typing-indicator" class="hidden px-5 py-3 bg-white/80 border-t border-gray-100 backdrop-blur-sm">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 border border-accent/20">
+            <div id="typing-indicator" class="hidden px-4 py-2 bg-white/50 backdrop-blur-sm border-t border-gray-100">
+                <div class="flex items-center gap-3 animate-pulse">
+                    <div class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center border border-accent/20">
                         <i class="fas fa-robot text-accent text-xs"></i>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-accent/70 text-sm font-medium">Dostify is thinking</span>
+                    <div class="bg-white rounded-xl py-2 px-3 shadow-sm max-w-[85%] border border-gray-100">
                         <div class="flex gap-1">
-                            <span class="w-2 h-2 bg-accent/60 rounded-full animate-bounce" style="animation-delay: 0s"></span>
-                            <span class="w-2 h-2 bg-accent/60 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
-                            <span class="w-2 h-2 bg-accent/60 rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
+                            <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+                            <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+                            <div class="w-2 h-2 rounded-full bg-gray-300"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Chat Input -->
-            <div class="p-4 bg-white border-t border-gray-100 sm:rounded-b-2xl">
+            <div class="p-4 bg-white border-t border-gray-100">
                 <form id="chat-form" class="flex gap-3 items-center">
                     <button type="button" id="voice-input" 
                             class="w-11 h-11 rounded-full bg-gray-100 hover:bg-gray-200/80 flex items-center justify-center transition-all duration-300 flex-shrink-0 hover:shadow-md">

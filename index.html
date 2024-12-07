@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,72 +20,121 @@
                         secondary: '#34495E',
                         accent: '#2ECC71',
                     },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                    },
                 }
             }
         }
     </script>
+    <style>
+        .backdrop-blur-md {
+            backdrop-filter: blur(12px);
+        }
+    </style>
 </head>
 <body class="font-poppins">
-    <header class="bg-gradient-to-r from-primary to-secondary">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex justify-between items-center">
-                <div class="text-3xl font-bold text-white">Dostify</div>
+                <div class="text-3xl font-bold text-primary">Dostify</div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#features" class="text-white hover:opacity-80 transition-opacity">Features</a>
-                    <a href="#how-it-works" class="text-white hover:opacity-80 transition-opacity">How it Works</a>
-                    <a href="#benefits" class="text-white hover:opacity-80 transition-opacity">Benefits</a>
-                    <a href="#testimonials" class="text-white hover:opacity-80 transition-opacity">Testimonials</a>
+                    <a href="#features" class="text-gray-700 hover:text-primary transition-colors">Features</a>
+                    <a href="#how-it-works" class="text-gray-700 hover:text-primary transition-colors">How it Works</a>
+                    <a href="#benefits" class="text-gray-700 hover:text-primary transition-colors">Benefits</a>
+                    <a href="#testimonials" class="text-gray-700 hover:text-primary transition-colors">Testimonials</a>
                     <button class="bg-accent hover:bg-accent/90 text-white px-6 py-2 rounded-lg transition transform hover:-translate-y-0.5">
                         Get Started
                     </button>
                 </div>
-                <button class="md:hidden text-white">
+                <button class="md:hidden text-gray-700" id="mobile-menu-button">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
-        </nav>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-4 py-3 space-y-3 bg-white shadow-lg">
+                <a href="#features" class="block text-gray-700 hover:text-primary">Features</a>
+                <a href="#how-it-works" class="block text-gray-700 hover:text-primary">How it Works</a>
+                <a href="#benefits" class="block text-gray-700 hover:text-primary">Benefits</a>
+                <a href="#testimonials" class="block text-gray-700 hover:text-primary">Testimonials</a>
+                <button class="w-full bg-accent hover:bg-accent/90 text-white px-6 py-2 rounded-lg transition">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </nav>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="text-white space-y-6">
+    <!-- Hero Section -->
+    <header class="min-h-screen bg-gradient-to-r from-primary to-secondary pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
+            <div class="grid md:grid-cols-2 gap-12 items-center w-full py-12">
+                <div class="text-white space-y-6 animate-fade-in-up">
                     <h1 class="text-4xl md:text-5xl font-bold leading-tight">
                         Your Friendly AI Companion for Every Student's Journey
                     </h1>
                     <p class="text-lg md:text-xl opacity-90">
                         Navigate academic pressure, mental health, and career uncertainty with your personal AI companion
                     </p>
-                    <button class="bg-accent hover:bg-accent/90 text-white px-8 py-3 rounded-lg text-lg transition transform hover:-translate-y-0.5">
-                        Talk to Dostify Now
+                    <button class="bg-accent hover:bg-accent/90 text-white px-8 py-3 rounded-lg text-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <span>Talk to Dostify Now</span>
+                        <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
-                <div class="hidden md:block">
-                    <img src="https://ik.imagekit.io/uti9laa1e/ai-companion-illustration.svg?tr=w-600" alt="Dostify AI Companion Illustration" class="w-full" onerror="this.src='https://via.placeholder.com/600x400/4A90E2/FFFFFF?text=Dostify+AI+Companion'">
+                <div class="hidden md:block animate-fade-in">
+                    <img src="https://ik.imagekit.io/uti9laa1e/ai-companion-illustration.svg?tr=w-600" 
+                         alt="Dostify AI Companion Illustration" 
+                         class="w-full hover:scale-105 transition-transform duration-500" 
+                         onerror="this.src='https://via.placeholder.com/600x400/4A90E2/FFFFFF?text=Dostify+AI+Companion'">
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- Features Section -->
     <section id="features" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-12">Core Features</h2>
+            <h2 class="text-4xl font-bold text-center mb-4">Core Features</h2>
+            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Discover how Dostify can help you excel in your academic journey and maintain a balanced life.</p>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-                    <i class="fas fa-comments text-4xl text-primary mb-4"></i>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 group">
+                    <div class="text-primary group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-comments text-4xl mb-4"></i>
+                    </div>
                     <h3 class="text-xl font-semibold mb-2">Personalized Conversations</h3>
                     <p class="text-gray-600">Experience meaningful conversations with AI that truly listens and understands your needs</p>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-                    <i class="fas fa-clock text-4xl text-primary mb-4"></i>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 group">
+                    <div class="text-primary group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-clock text-4xl mb-4"></i>
+                    </div>
                     <h3 class="text-xl font-semibold mb-2">Stress & Time Management</h3>
                     <p class="text-gray-600">Master your schedule and reduce academic pressure with smart management techniques</p>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-                    <i class="fas fa-heart text-4xl text-primary mb-4"></i>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 group">
+                    <div class="text-primary group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-heart text-4xl mb-4"></i>
+                    </div>
                     <h3 class="text-xl font-semibold mb-2">Mental Health Support</h3>
                     <p class="text-gray-600">Access resources and coping strategies for anxiety, depression, and stress</p>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-                    <i class="fas fa-briefcase text-4xl text-primary mb-4"></i>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 group">
+                    <div class="text-primary group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-briefcase text-4xl mb-4"></i>
+                    </div>
                     <h3 class="text-xl font-semibold mb-2">Career Guidance</h3>
                     <p class="text-gray-600">Get clarity on your career path with personalized guidance and preparation</p>
                 </div>
@@ -93,6 +142,7 @@
         </div>
     </section>
 
+    <!-- How it Works Section -->
     <section id="how-it-works" class="py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-4xl font-bold text-center mb-12">How Dostify Works</h2>
@@ -116,6 +166,7 @@
         </div>
     </section>
 
+    <!-- Benefits Section -->
     <section id="benefits" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-4xl font-bold text-center mb-12">Benefits of Using Dostify</h2>
@@ -144,6 +195,7 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
     <section id="testimonials" class="py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-4xl font-bold text-center mb-12">Student Stories</h2>
@@ -166,6 +218,7 @@
         </div>
     </section>
 
+    <!-- Footer Section -->
     <footer class="bg-secondary text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
@@ -206,10 +259,41 @@
         </div>
     </footer>
 
-    <div class="fixed bottom-8 right-8 z-50">
-        <button class="w-16 h-16 bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
+    <!-- Chat Widget -->
+    <div class="fixed bottom-8 right-8 z-50" id="chat-widget">
+        <!-- Chat Button -->
+        <button id="chat-toggle" class="w-16 h-16 bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 flex items-center justify-center">
             <i class="fas fa-comments text-2xl"></i>
         </button>
+
+        <!-- Chat Interface -->
+        <div id="chat-interface" class="hidden absolute bottom-20 right-0 w-96 bg-white rounded-lg shadow-xl">
+            <div class="p-4 bg-primary rounded-t-lg flex justify-between items-center">
+                <h3 class="text-white font-semibold">Chat with Dostify</h3>
+                <button id="close-chat" class="text-white hover:opacity-80">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="chat-messages" class="h-96 overflow-y-auto p-4 space-y-4">
+                <!-- Messages will be inserted here -->
+                <div class="flex items-start mb-4">
+                    <div class="bg-primary/10 rounded-lg p-3 ml-auto max-w-[80%]">
+                        <p class="text-gray-700">Hi! I'm Dostify, your AI companion. How can I help you today?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t">
+                <form id="chat-form" class="flex gap-2">
+                    <input type="text" id="chat-input" 
+                           class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
+                           placeholder="Type your message...">
+                    <button type="submit" 
+                            class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>

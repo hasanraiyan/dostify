@@ -29,61 +29,201 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Chat functionality
+// Chat elements
 const chatToggle = document.getElementById('chat-toggle');
 const chatInterface = document.getElementById('chat-interface');
 const closeChat = document.getElementById('close-chat');
+const minimizeChat = document.getElementById('minimize-chat');
+const chatMessages = document.getElementById('chat-messages');
 const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input');
-const chatMessages = document.getElementById('chat-messages');
+const voiceInput = document.getElementById('voice-input');
+const typingIndicator = document.getElementById('typing-indicator');
+const messageSentSound = document.getElementById('message-sent');
+const messageReceivedSound = document.getElementById('message-received');
+
+// Speech recognition setup
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = null;
+if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.lang = 'en-US';
+}
+
+// Chat state
+let isMinimized = false;
+let isTyping = false;
+
+// Initialize chat
+function initializeChat() {
+    chatToggle.addEventListener('click', toggleChat);
+    closeChat.addEventListener('click', closeChattingInterface);
+    minimizeChat?.addEventListener('click', minimizeChattingInterface);
+    chatForm.addEventListener('submit', handleChatSubmit);
+    voiceInput.addEventListener('click', toggleVoiceInput);
+    
+    // Handle mobile viewport height
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    window.addEventListener('resize', () => {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    });
+}
 
 // Toggle chat interface
-chatToggle.addEventListener('click', () => {
+function toggleChat() {
     chatInterface.classList.toggle('hidden');
-    chatInput.focus();
-});
+    if (!chatInterface.classList.contains('hidden')) {
+        chatInput.focus();
+        scrollToBottom();
+    }
+}
 
 // Close chat interface
-closeChat.addEventListener('click', () => {
+function closeChattingInterface() {
     chatInterface.classList.add('hidden');
-});
+    isMinimized = false;
+    updateChatSize();
+}
+
+// Minimize chat interface
+function minimizeChattingInterface() {
+    isMinimized = !isMinimized;
+    updateChatSize();
+}
+
+// Update chat size based on state
+function updateChatSize() {
+    if (window.innerWidth >= 640) return; // Only for mobile
+    
+    if (isMinimized) {
+        chatInterface.style.height = '400px';
+        chatMessages.style.height = 'calc(400px - 140px)';
+        minimizeChat.innerHTML = '<i class="fas fa-expand"></i>';
+    } else {
+        chatInterface.style.height = '100vh';
+        chatMessages.style.height = 'calc(100vh - 140px)';
+        minimizeChat.innerHTML = '<i class="fas fa-minus"></i>';
+    }
+    scrollToBottom();
+}
 
 // Handle chat form submission
-chatForm.addEventListener('submit', async (e) => {
+async function handleChatSubmit(e) {
     e.preventDefault();
     const message = chatInput.value.trim();
     if (!message) return;
 
-    // Add user message to chat
+    // Play send sound
+    messageSentSound.play().catch(() => {});
+
+    // Add user message
     addMessage(message, 'user');
     chatInput.value = '';
+    scrollToBottom();
 
-    // Simulate AI response (replace with actual API call)
+    // Show typing indicator
+    showTypingIndicator();
+
+    // Get AI response
     const response = await getAIResponse(message);
-    addMessage(response, 'ai');
-});
 
-// Add message to chat interface
+    // Hide typing indicator and add AI response
+    hideTypingIndicator();
+    addMessage(response, 'ai');
+    
+    // Play receive sound
+    messageReceivedSound.play().catch(() => {});
+    
+    scrollToBottom();
+}
+
+// Add message to chat
 function addMessage(message, sender) {
     const messageDiv = document.createElement('div');
-    messageDiv.className = 'flex items-start mb-4 animate-fade-in';
-    
-    const messageContent = document.createElement('div');
-    messageContent.className = sender === 'user' 
-        ? 'bg-accent/10 rounded-lg p-3 mr-auto max-w-[80%]'
-        : 'bg-primary/10 rounded-lg p-3 ml-auto max-w-[80%]';
-    
-    const messageText = document.createElement('p');
-    messageText.className = 'text-gray-700';
-    messageText.textContent = message;
-    
-    messageContent.appendChild(messageText);
-    messageDiv.appendChild(messageContent);
+    messageDiv.className = 'flex items-start gap-2 animate-fade-in';
+
+    if (sender === 'ai') {
+        messageDiv.innerHTML = `
+            <div class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-user-graduate text-accent text-sm"></i>
+            </div>
+            <div class="bg-white rounded-2xl rounded-tl-sm p-3 shadow-sm max-w-[80%]">
+                <p class="text-gray-700">${message}</p>
+            </div>
+        `;
+    } else {
+        messageDiv.innerHTML = `
+            <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center flex-shrink-0 ml-auto order-2">
+                <i class="fas fa-user text-white text-sm"></i>
+            </div>
+            <div class="bg-accent/10 rounded-2xl rounded-tr-sm p-3 max-w-[80%] order-1">
+                <p class="text-gray-700">${message}</p>
+            </div>
+        `;
+    }
+
     chatMessages.appendChild(messageDiv);
-    
-    // Scroll to bottom
+}
+
+// Show typing indicator
+function showTypingIndicator() {
+    typingIndicator.classList.remove('hidden');
+    scrollToBottom();
+}
+
+// Hide typing indicator
+function hideTypingIndicator() {
+    typingIndicator.classList.add('hidden');
+}
+
+// Scroll chat to bottom
+function scrollToBottom() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
+
+// Toggle voice input
+function toggleVoiceInput() {
+    if (!recognition) {
+        alert('Sorry, voice input is not supported in your browser.');
+        return;
+    }
+
+    if (recognition.isStarted) {
+        recognition.stop();
+        voiceInput.classList.remove('bg-accent', 'text-white');
+        voiceInput.classList.add('bg-gray-100', 'text-gray-600');
+    } else {
+        recognition.start();
+        voiceInput.classList.remove('bg-gray-100', 'text-gray-600');
+        voiceInput.classList.add('bg-accent', 'text-white');
+    }
+}
+
+// Handle speech recognition
+if (recognition) {
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        chatInput.value = transcript;
+        voiceInput.classList.remove('bg-accent', 'text-white');
+        voiceInput.classList.add('bg-gray-100', 'text-gray-600');
+    };
+
+    recognition.onend = () => {
+        recognition.isStarted = false;
+        voiceInput.classList.remove('bg-accent', 'text-white');
+        voiceInput.classList.add('bg-gray-100', 'text-gray-600');
+    };
+
+    recognition.onstart = () => {
+        recognition.isStarted = true;
+    };
+}
+
+// Initialize chat
+initializeChat();
 
 // Get AI response using pollinations.ai
 async function getAIResponse(message) {
@@ -94,11 +234,11 @@ async function getAIResponse(message) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: "gpt-3.5-turbo",
+                model: "gpt-4o",
                 messages: [
                     {
                         role: "system",
-                        content: "You are Dostify, a friendly AI companion for students. Your purpose is to help students with academic pressure, mental health, career guidance, and social challenges. Keep responses concise, supportive, and focused on student well-being. Always maintain a positive, encouraging tone."
+                        content: "You are a friendly and supportive peer named Dostify. Act like a caring friend who happens to be really good at helping with studies and life advice. Use a casual, warm tone with occasional emojis. Show empathy, share relatable examples, and make the conversation feel natural - like chatting with a friend who truly cares. Keep responses concise (2-3 sentences max). Use phrases like 'I get that', 'You know what?', 'Hey!', and other friendly expressions. Avoid sounding too formal or robotic."
                     },
                     {
                         role: "user",
@@ -106,7 +246,7 @@ async function getAIResponse(message) {
                     }
                 ],
                 max_tokens: 150,
-                temperature: 0.7
+                temperature: 0.8
             })
         });
 
@@ -118,19 +258,19 @@ async function getAIResponse(message) {
         return data.choices[0].message.content;
     } catch (error) {
         console.error('Error calling AI API:', error);
-        // Fallback responses if API fails
+        // Friendly fallback responses
         const fallbackResponses = {
-            'hello': 'Hi there! How can I help you today?',
-            'hi': 'Hello! What can I do for you?',
-            'how are you': "I'm doing great, thanks for asking! How can I assist you?",
-            'help': 'I can help you with academic pressure, mental health, career guidance, and more. What specific area would you like to discuss?',
-            'bye': 'Goodbye! Feel free to come back anytime you need help!',
-            'thanks': "You're welcome! Is there anything else you'd like to discuss?",
-            'thank you': "You're welcome! Let me know if you need any further assistance.",
-            'study': "I can help you develop effective study strategies. What subject are you focusing on?",
-            'stress': "I understand dealing with stress can be challenging. Let's work together on some stress management techniques.",
-            'career': "I'd be happy to help you explore career options. What fields interest you the most?",
-            'exam': "Exams can be stressful. I can help you with study planning and anxiety management. What specific concerns do you have?"
+            'hello': "Hey there! 👋 How's your day going?",
+            'hi': "Hi friend! 😊 What's on your mind?",
+            'how are you': "I'm doing great, thanks for asking! But more importantly, how are YOU doing? 💫",
+            'help': "Hey! Of course I'm here to help - that's what friends are for! What's bothering you? 🤗",
+            'bye': "Take care, friend! Remember, I'm always here when you need someone to talk to! 👋✨",
+            'thanks': "Anytime! That's what friends are for! 💫",
+            'thank you': "You're so welcome! Don't hesitate to reach out again, okay? 🌟",
+            'study': "Hey! I totally get study stress. Want to talk about what's challenging you? We can figure this out together! 📚",
+            'stress': "I hear you - stress can be really tough. Want to talk about what's on your mind? Sometimes just chatting helps! 💭",
+            'career': "Thinking about the future? That's exciting! What kind of things interest you? Let's explore this together! 🌟",
+            'exam': "Exams can be scary, I totally get that! But you know what? We can work on this together. What's worrying you the most? 📝"
         };
 
         // Check for keyword matches in fallback responses
@@ -141,8 +281,8 @@ async function getAIResponse(message) {
             }
         }
 
-        // Default fallback response
-        return "I apologize, but I'm having trouble connecting right now. Please try again later or rephrase your question.";
+        // Friendly default fallback response
+        return "Hey! Looks like I'm having a bit of trouble connecting right now 😅 But I still want to chat! Could you try saying that again in a different way? 💫";
     }
 }
 

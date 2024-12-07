@@ -49,17 +49,31 @@ class DostifyChat {
         const messageDiv = document.createElement('div');
         messageDiv.className = `flex items-start gap-3 ${sender === 'user' ? 'flex-row-reverse user-message' : 'ai-message'}`;
         
-        const iconDiv = document.createElement('div');
-        iconDiv.className = `w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 border ${
-            sender === 'user' 
-                ? 'bg-primary/10 border-primary/20' 
-                : 'bg-accent/10 border-accent/20'
-        }`;
-        
-        const icon = document.createElement('i');
-        icon.className = sender === 'user' 
-            ? 'fas fa-user text-primary text-sm'
-            : 'fas fa-robot text-accent text-sm';
+        // Only add icon for user messages or the first AI message in a sequence
+        const lastMessage = this.chatMessages.lastElementChild;
+        const isConsecutiveAI = lastMessage && 
+            lastMessage.classList.contains('ai-message') && 
+            sender === 'ai';
+
+        if (!isConsecutiveAI) {
+            const iconDiv = document.createElement('div');
+            iconDiv.className = `w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 border ${
+                sender === 'user' 
+                    ? 'bg-primary/10 border-primary/20' 
+                    : 'bg-accent/10 border-accent/20'
+            }`;
+            
+            const icon = document.createElement('i');
+            icon.className = sender === 'user' 
+                ? 'fas fa-user text-primary text-sm'
+                : 'fas fa-robot text-accent text-sm';
+            
+            iconDiv.appendChild(icon);
+            messageDiv.appendChild(iconDiv);
+        } else {
+            // Add spacing for consecutive AI messages
+            messageDiv.style.marginLeft = '3.5rem';
+        }
         
         const messageContent = document.createElement('div');
         messageContent.className = `rounded-2xl p-4 shadow-sm transition-all ${
@@ -73,9 +87,7 @@ class DostifyChat {
         messageText.className = 'leading-relaxed';
         messageText.textContent = message;
         
-        iconDiv.appendChild(icon);
         messageContent.appendChild(messageText);
-        messageDiv.appendChild(iconDiv);
         messageDiv.appendChild(messageContent);
         
         this.chatMessages.appendChild(messageDiv);

@@ -7,7 +7,7 @@ class DostifyChat {
         this.chatInput = document.getElementById('chat-input');
         this.typingIndicator = document.getElementById('typing-indicator');
         this.messageHistory = [];
-        
+        this.aiMemory = this.loadAIMemory();
         this.initializeEventListeners();
         this.loadChatHistory();
     }
@@ -188,6 +188,84 @@ class DostifyChat {
         }
     }
 
+    // AI Memory Management
+    loadAIMemory() {
+        try {
+            const savedMemory = localStorage.getItem('dostifyAIMemory');
+            return savedMemory ? JSON.parse(savedMemory) : [];
+        } catch (error) {
+            console.error('Error loading AI memory:', error);
+            return [];
+        }
+    }
+
+    saveAIMemory(memory) {
+        try {
+            this.aiMemory.push({
+                content: memory,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('dostifyAIMemory', JSON.stringify(this.aiMemory));
+            
+            // Show notification
+            this.showMemoryNotification('Memory Added', '💭');
+        } catch (error) {
+            console.error('Error saving AI memory:', error);
+        }
+    }
+
+    removeAIMemory(memory) {
+        try {
+            const initialLength = this.aiMemory.length;
+            this.aiMemory = this.aiMemory.filter(m => m.content !== memory);
+            localStorage.setItem('dostifyAIMemory', JSON.stringify(this.aiMemory));
+            
+            // Only show notification if a memory was actually removed
+            if (initialLength !== this.aiMemory.length) {
+                this.showMemoryNotification('Memory Removed', '🗑️');
+            }
+        } catch (error) {
+            console.error('Error removing AI memory:', error);
+        }
+    }
+
+    clearAIMemory() {
+        try {
+            this.aiMemory = [];
+            localStorage.setItem('dostifyAIMemory', JSON.stringify(this.aiMemory));
+            this.showMemoryNotification('All Memories Cleared', '🧹');
+        } catch (error) {
+            console.error('Error clearing AI memory:', error);
+        }
+    }
+
+    showMemoryNotification(text, emoji) {
+        const notification = document.createElement('div');
+        notification.className = 'fixed bottom-4 right-4 bg-accent/90 text-white px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 flex items-center gap-2';
+        notification.style.zIndex = '1000';
+        notification.innerHTML = `
+            <span class="text-lg">${emoji}</span>
+            <span class="text-sm font-medium">${text}</span>
+        `;
+        
+        document.body.appendChild(notification);
+
+        // Animate in
+        requestAnimationFrame(() => {
+            notification.style.transform = 'translateY(0)';
+            notification.style.opacity = '1';
+        });
+
+        // Remove after 2 seconds
+        setTimeout(() => {
+            notification.style.transform = 'translateY(20px)';
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 2000);
+    }
+
     async getAIResponse(message) {
         try {
             const response = await fetch(CONFIG.API_URL, {
@@ -200,7 +278,7 @@ class DostifyChat {
                     messages: [
                         {
                             role: 'system',
-                            content: CONFIG.SYSTEM_PROMPT
+                            content: `${CONFIG.SYSTEM_PROMPT}\n\nAvailable Memory:\n${JSON.stringify(this.aiMemory, null, 2)}\n\nYou can use <add_memory></add_memory> to store important information and <remove_memory></remove_memory> to remove it.`
                         },
                         ...this.messageHistory,
                         {
@@ -275,19 +353,44 @@ class DostifyChat {
     }
 
     async processAIResponse(response) {
+        // Extract memory commands
+        const addMemoryRegex = /<add_memory>([\s\S]*?)<\/add_memory>/g;
+        const removeMemoryRegex = /<remove_memory>([\s\S]*?)<\/remove_memory>/g;
+        
+        // Process add memory commands
+        const addMemoryMatches = Array.from(response.matchAll(addMemoryRegex));
+        addMemoryMatches.forEach(match => {
+            const memory = match[1].trim();
+            if (memory) {
+                this.saveAIMemory(memory);
+            }
+        });
+
+        // Process remove memory commands
+        const removeMemoryMatches = Array.from(response.matchAll(removeMemoryRegex));
+        removeMemoryMatches.forEach(match => {
+            const memory = match[1].trim();
+            if (memory) {
+                this.removeAIMemory(memory);
+            }
+        });
+
+        // Remove memory commands from response
+        let cleanResponse = response.replace(addMemoryRegex, '').replace(removeMemoryRegex, '').trim();
+
         // Use regex to match content between message tags
         const messageRegex = /<message>([\s\S]*?)<\/message>/g;
-        const matches = Array.from(response.matchAll(messageRegex));
+        const matches = Array.from(cleanResponse.matchAll(messageRegex));
         
         console.log('Original Response:', response);
         console.log('Found Messages:', matches);
 
         if (matches.length === 0) {
             // If no message tags found, treat the entire response as one message
-            this.addMessage(response.trim(), 'ai');
+            this.addMessage(cleanResponse.trim(), 'ai');
             this.messageHistory.push({
                 role: 'assistant',
-                content: response.trim()
+                content: cleanResponse.trim()
             });
             return;
         }

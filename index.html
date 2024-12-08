@@ -14,10 +14,10 @@
     <script src="js/main.js" defer></script>
     <script src="js/config.js" type="module"></script>
     <script src="js/chat.js" type="module"></script>
-        <!-- Sample Prompts Script -->
-        <script src="js/sample-prompts.js"></script>
-        <!-- Audio Elements -->
-  <script>
+    <!-- Sample Prompts Script -->
+    <script src="js/sample-prompts.js"></script>
+    <!-- Audio Elements -->
+    <script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -379,73 +379,132 @@
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold mb-4">Ask Dostify</h2>
                 <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-                    Try these carefully crafted conversations starter to get started with Dostify and see how it can help your studies
+                    Try these carefully crafted conversation starters to get started with Dostify and explore how it can
+                    assist you in academics, mental well-being, and personal growth.
                 </p>
             </div>
-    
+
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Study Planning Card -->
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[320px]">
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[320px]">
                     <div>
                         <div class="flex items-center mb-6">
                             <span class="text-3xl mr-3">📚</span>
                             <h3 class="text-xl font-semibold text-blue-600">Study Planning</h3>
                         </div>
                         <p class="text-gray-600 mb-6 text-lg leading-relaxed">
-                            "Help me create a study schedule for my upcoming finals in Data Structures, 
-                            Algorithms, and Database Management."
+                            Help me create a study schedule for my finals in Data Structures, Algorithms, and Database
+                            Management.
                         </p>
                     </div>
-                    <button class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors duration-200 group" data-prompt="Help me create a study schedule for my upcoming finals in Data Structures, Algorithms, and Database Management.">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                    <button
+                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors duration-200 group"
+                        data-prompt="Help me create a study schedule for my finals in Data Structures, Algorithms, and Database Management.">
                         Try this
                     </button>
                 </div>
-    
-                <!-- Concept Explanation Card -->
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[320px]">
+
+                <!-- Emotional Support Card -->
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[320px]">
                     <div>
                         <div class="flex items-center mb-6">
-                            <span class="text-3xl mr-3">🧠</span>
-                            <h3 class="text-xl font-semibold text-green-600">Concept Explanation</h3>
+                            <span class="text-3xl mr-3">💬</span>
+                            <h3 class="text-xl font-semibold text-red-600">Emotional Support</h3>
                         </div>
                         <p class="text-gray-600 mb-6 text-lg leading-relaxed">
-                            "Explain the concept of polymorphism in object-oriented programming 
-                            with simple real-world examples."
+                            I failed an exam and feel like giving up. Can you motivate me to try again?
                         </p>
                     </div>
-                    <button class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition-colors duration-200 group" data-prompt="Explain the concept of polymorphism in object-oriented programming with simple real-world examples.">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                    <button
+                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors duration-200 group"
+                        data-prompt="I failed an exam and feel like giving up. Can you motivate me to try again?">
                         Try this
                     </button>
                 </div>
-    
-                <!-- Practice Questions Card -->
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[320px]">
+
+                <!-- Career Guidance Card -->
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[320px]">
                     <div>
                         <div class="flex items-center mb-6">
-                            <span class="text-3xl mr-3">📝</span>
-                            <h3 class="text-xl font-semibold text-purple-600">Practice Questions</h3>
+                            <span class="text-3xl mr-3">🎓</span>
+                            <h3 class="text-xl font-semibold text-yellow-600">Career Guidance</h3>
                         </div>
                         <p class="text-gray-600 mb-6 text-lg leading-relaxed">
-                            "Generate practice questions for networking fundamentals, focusing on 
-                            TCP/IP protocols and OSI model."
+                            What career paths can I explore if I’m interested in technology and coding?
                         </p>
                     </div>
-                    <button class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100 transition-colors duration-200 group" data-prompt="Generate practice questions for networking fundamentals, focusing on TCP/IP protocols and OSI model.">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                    <button
+                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-yellow-50 text-yellow-600 rounded-lg hover:bg-yellow-100 transition-colors duration-200 group"
+                        data-prompt="What career paths can I explore if I’m interested in technology and coding?">
+                        Try this
+                    </button>
+                </div>
+
+                <!-- Personalized Motivation Card -->
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[320px]">
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <span class="text-3xl mr-3">🏏</span>
+                            <h3 class="text-xl font-semibold text-orange-600">Personalized Motivation</h3>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                            I love cricket. Can you share how Virat Kohli handles pressure to inspire me in my studies?
+                        </p>
+                    </div>
+                    <button
+                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-orange-50 text-orange-600 rounded-lg hover:bg-orange-100 transition-colors duration-200 group"
+                        data-prompt="I love cricket. Can you share how Virat Kohli handles pressure to inspire me in my studies?">
+                        Try this
+                    </button>
+                </div>
+
+                <!-- Mental Health Support Card -->
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[320px]">
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <span class="text-3xl mr-3">🧘‍♀️</span>
+                            <h3 class="text-xl font-semibold text-purple-600">Mental Health</h3>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                            I feel anxious and can’t focus on my studies. Can you help me calm down and concentrate
+                            better?
+                        </p>
+                    </div>
+                    <button
+                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100 transition-colors duration-200 group"
+                        data-prompt="I feel anxious and can’t focus on my studies. Can you help me calm down and concentrate better?">
+                        Try this
+                    </button>
+                </div>
+
+                <!-- Social Skills Card -->
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[320px]">
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <span class="text-3xl mr-3">👫</span>
+                            <h3 class="text-xl font-semibold text-teal-600">Social Skills</h3>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                            I’m shy and find it hard to talk to classmates. Can you give me tips on how to start a
+                            conversation?
+                        </p>
+                    </div>
+                    <button
+                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-teal-50 text-teal-600 rounded-lg hover:bg-teal-100 transition-colors duration-200 group"
+                        data-prompt="I’m shy and find it hard to talk to classmates. Can you give me tips on how to start a conversation?">
                         Try this
                     </button>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- Footer Section -->
     <footer class="bg-secondary text-white py-16">
@@ -509,7 +568,7 @@
                 <div class="flex items-center gap-3">
                     <div
                         class="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
-                        <i class="fas fa-robot text-white text-lg"></i>
+                        <img src="./icon-removebg-preview.png" class="">
                     </div>
                     <div>
                         <h3 class="text-white font-medium">Dostify</h3>
@@ -540,13 +599,12 @@
                 <div class="flex items-start gap-3 animate-fade-in">
                     <div
                         class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 border border-accent/20">
-                        <i class="fas fa-robot text-accent text-sm"></i>
+                        <img src="./icon-removebg-preview.png" class="w-8 h-8">
                     </div>
                     <div
                         class="bg-white rounded-2xl rounded-tl-sm py-3 px-4 shadow-sm max-w-[85%] border border-gray-100">
                         <p class="text-gray-700 leading-relaxed text-[15px]">Hey there! 👋 I'm Dostify, your AI
-                            companion. I'm here to help with your studies, career planning, or just to chat! What's on
-                            your mind? 😊</p>
+                            companion. 😊</p>
                     </div>
                 </div>
             </div>
@@ -556,7 +614,7 @@
                 <div class="flex items-center gap-3 animate-pulse">
                     <div
                         class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center border border-accent/20">
-                        <i class="fas fa-robot text-accent text-xs"></i>
+                        <img src="./icon-removebg-preview.png" class="w-8 h-8">
                     </div>
                     <div class="bg-white rounded-xl py-2 px-3 shadow-sm max-w-[85%] border border-gray-100">
                         <div class="flex gap-1">

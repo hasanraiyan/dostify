@@ -187,7 +187,7 @@ class DostifyChat {
             localStorage.removeItem('dostifyChatHistory');
             this.chatMessages.innerHTML = '';
             // Add back the welcome message
-            this.addMessage("👋 Hi there! I'm Dostify, your AI companion. I'm here to help with your studies, career planning, or just to chat! What's on your mind? 😊", 'ai');
+            this.addMessage("👋 Hi there! I'm Dostify, your AI companion. 😊", 'ai');
         } catch (error) {
             console.error('Error clearing chat history:', error);
         }
@@ -197,7 +197,6 @@ class DostifyChat {
         const messageDiv = document.createElement('div');
         messageDiv.className = `flex items-start gap-3 ${sender === 'user' ? 'flex-row-reverse user-message' : 'ai-message'} ${sender === 'user' ? 'mb-3' : 'mb-[2px]'} w-full`;
         
-        // Only add icon for user messages or the first AI message in a sequence
         const lastMessage = this.chatMessages.lastElementChild;
         const isConsecutiveAI = lastMessage && 
             lastMessage.classList.contains('ai-message') && 
@@ -216,12 +215,18 @@ class DostifyChat {
                     : 'bg-accent/10 border-accent/20'
             }`;
             
-            const icon = document.createElement('i');
-            icon.className = sender === 'user' 
-                ? 'fas fa-user text-primary text-sm'
-                : 'fas fa-robot text-accent text-sm';
+            if (sender === 'user') {
+                const icon = document.createElement('i');
+                icon.className = 'fas fa-user text-primary text-sm';
+                iconDiv.appendChild(icon);
+            } else {
+                const img = document.createElement('img');
+                img.src = 'icon.png';
+                img.alt = 'AI Avatar';
+                img.className = 'w-full h-full object-cover rounded-full';
+                iconDiv.appendChild(img);
+            }
             
-            iconDiv.appendChild(icon);
             messageDiv.appendChild(iconDiv);
         }
         
@@ -243,12 +248,10 @@ class DostifyChat {
         
         this.chatMessages.appendChild(messageDiv);
         
-        // Save to localStorage if needed
         if (saveToHistory) {
             this.saveChatHistory(message, sender, isError);
         }
         
-        // Smooth scroll with animation
         this.chatMessages.scrollTo({
             top: this.chatMessages.scrollHeight,
             behavior: 'smooth'

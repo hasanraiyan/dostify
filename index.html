@@ -564,34 +564,42 @@
         <div id="chat-interface"
             class="hidden fixed sm:absolute bottom-0 right-0 w-full sm:w-[400px] h-[100vh] sm:h-[650px] bg-white sm:rounded-2xl shadow-2xl border-0 sm:border border-accent/10 flex flex-col overflow-hidden backdrop-blur-lg">
             <!-- Chat Header -->
-            <div class="bg-gradient-to-r from-accent via-accent/90 to-accent p-4 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div
-                        class="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
-                        <img src="./icon-removebg-preview.png" class="">
+            <div class="bg-gradient-to-r from-accent via-accent/90 to-accent p-3 sm:p-4 flex items-center justify-between shadow-lg">
+                <!-- Left side: Logo and Text -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <!-- Logo container with better mobile scaling -->
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
+                        <img src="./icon-removebg-preview.png" alt="Dostify Logo" class="w-6 h-6 sm:w-8 sm:h-8 object-contain">
                     </div>
-                    <div>
-                        <h3 class="text-white font-medium">Dostify</h3>
-                        <p class="text-white/80 text-sm">AI Student Companion</p>
+                    <!-- Text container with overflow protection -->
+                    <div class="min-w-0">
+                        <h3 class="text-white font-medium text-sm sm:text-base truncate">Dostify</h3>
+                        <p class="text-white/80 text-xs sm:text-sm truncate">AI Student Companion</p>
                     </div>
                 </div>
-                <div class="flex gap-2 relative">
-                    <button id="clear-chat"
-                        class="text-white/90 hover:text-white transition-all duration-300 w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center"
-                        title="Clear Chat History">
-                        <i class="fas fa-trash-alt"></i>
+            
+                <!-- Right side: Buttons -->
+                <div class="flex gap-1 sm:gap-2">
+                    <!-- Clear Chat Button -->
+                    <button id="clear-chat" 
+                            class="text-white/90 hover:text-white transition-all duration-300 w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/10 flex items-center justify-center"
+                            title="Clear Chat History">
+                        <i class="fas fa-trash-alt text-sm sm:text-base"></i>
                     </button>
-                    <button id="minimize-chat"
-                        class="text-white/90 hover:text-white transition-all duration-300 sm:hidden w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button id="close-chat"
-                        class="text-white/90 hover:text-white transition-all duration-300 w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center">
-                        <i class="fas fa-times"></i>
+                    
+                    <!-- Minimize Button (mobile only)
+                    <button id="minimize-chat" 
+                            class="text-white/90 hover:text-white transition-all duration-300 sm:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/10 flex items-center justify-center">
+                        <i class="fas fa-minus text-sm sm:text-base"></i>
+                    </button> -->
+                    
+                    <!-- Close Button -->
+                    <button id="close-chat" 
+                            class="text-white/90 hover:text-white transition-all duration-300 w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/10 flex items-center justify-center">
+                        <i class="fas fa-times text-sm sm:text-base"></i>
                     </button>
                 </div>
             </div>
-
             <!-- Chat Messages -->
             <div id="chat-messages"
                 class="flex-1 overflow-y-auto px-4 py-6 space-y-4 bg-gradient-to-b from-gray-50/50 to-white/30 backdrop-blur-sm">

@@ -8,8 +8,74 @@ class DostifyChat {
         this.typingIndicator = document.getElementById('typing-indicator');
         this.messageHistory = [];
         this.aiMemory = this.loadAIMemory();
+        this.recognition = null;
+        this.isListening = false;
         this.initializeEventListeners();
         this.loadChatHistory();
+        this.initializeSpeechRecognition();
+    }
+
+    initializeSpeechRecognition() {
+        if (!('webkitSpeechRecognition' in window)) {
+            console.warn('Speech recognition is not supported in this browser');
+            return;
+        }
+
+        try {
+            this.recognition = new webkitSpeechRecognition();
+            this.recognition.continuous = false;
+            this.recognition.interimResults = false;
+            this.recognition.lang = 'en-US';
+
+            this.recognition.onstart = () => {
+                console.log('Speech recognition started');
+                this.isListening = true;
+                const micButton = document.getElementById('voice-input');
+                if (micButton) {
+                    micButton.classList.add('bg-accent', 'text-white');
+                    micButton.classList.remove('bg-gray-100', 'hover:bg-gray-200/80');
+                    micButton.querySelector('i').classList.add('text-white');
+                    micButton.querySelector('i').classList.remove('text-gray-600');
+                }
+            };
+
+            this.recognition.onend = () => {
+                console.log('Speech recognition ended');
+                this.isListening = false;
+                const micButton = document.getElementById('voice-input');
+                if (micButton) {
+                    micButton.classList.remove('bg-accent', 'text-white');
+                    micButton.classList.add('bg-gray-100', 'hover:bg-gray-200/80');
+                    micButton.querySelector('i').classList.remove('text-white');
+                    micButton.querySelector('i').classList.add('text-gray-600');
+                }
+            };
+
+            this.recognition.onresult = (event) => {
+                console.log('Speech recognition result received', event);
+                const transcript = event.results[0][0].transcript;
+                console.log('Transcript:', transcript);
+                if (this.chatInput) {
+                    this.chatInput.value = transcript;
+                    this.chatForm.dispatchEvent(new Event('submit'));
+                }
+            };
+
+            this.recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                this.isListening = false;
+                const micButton = document.getElementById('voice-input');
+                if (micButton) {
+                    micButton.classList.remove('bg-accent', 'text-white');
+                    micButton.classList.add('bg-gray-100', 'hover:bg-gray-200/80');
+                    micButton.querySelector('i').classList.remove('text-white');
+                    micButton.querySelector('i').classList.add('text-gray-600');
+                }
+                alert('Speech recognition error: ' + event.error);
+            };
+        } catch (error) {
+            console.error('Error initializing speech recognition:', error);
+        }
     }
 
     initializeEventListeners() {
@@ -21,6 +87,12 @@ class DostifyChat {
             }
         });
 
+        // Add voice input button listener
+        const voiceInputButton = document.getElementById('voice-input');
+        if (voiceInputButton) {
+            voiceInputButton.addEventListener('click', () => this.toggleVoiceInput());
+        }
+
         // Add clear chat button listener
         const clearChatButton = document.getElementById('clear-chat');
         if (clearChatButton) {
@@ -29,6 +101,27 @@ class DostifyChat {
                     this.clearChatHistory();
                 }
             });
+        }
+    }
+
+    toggleVoiceInput() {
+        console.log('Toggling voice input');
+        if (!this.recognition) {
+            alert('Speech recognition is not supported in your browser. Please try using Chrome.');
+            return;
+        }
+
+        try {
+            if (this.isListening) {
+                console.log('Stopping recognition');
+                this.recognition.stop();
+            } else {
+                console.log('Starting recognition');
+                this.recognition.start();
+            }
+        } catch (error) {
+            console.error('Error toggling voice input:', error);
+            alert('Error with voice input: ' + error.message);
         }
     }
 
@@ -192,82 +285,59 @@ class DostifyChat {
     loadAIMemory() {
         try {
             const savedMemory = localStorage.getItem('dostifyAIMemory');
-            return savedMemory ? JSON.parse(savedMemory) : [];
+            return savedMemory ? this.deduplicateMemory(JSON.parse(savedMemory)) : [];
         } catch (error) {
             console.error('Error loading AI memory:', error);
             return [];
         }
     }
 
-    saveAIMemory(memory) {
-        try {
-            this.aiMemory.push({
-                content: memory,
-                timestamp: new Date().toISOString()
-            });
-            localStorage.setItem('dostifyAIMemory', JSON.stringify(this.aiMemory));
-            
-            // Show notification
-            this.showMemoryNotification('Memory Added', '💭');
-        } catch (error) {
-            console.error('Error saving AI memory:', error);
-        }
+    deduplicateMemory(memory) {
+        const uniqueMemory = Array.from(
+            new Set(memory.map(item => JSON.stringify(item)))
+        ).map(item => JSON.parse(item));
+
+        return uniqueMemory
+            .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
+            .slice(0, 100);
     }
 
-    removeAIMemory(memory) {
+    saveToAIMemory(data) {
         try {
-            const initialLength = this.aiMemory.length;
-            this.aiMemory = this.aiMemory.filter(m => m.content !== memory);
-            localStorage.setItem('dostifyAIMemory', JSON.stringify(this.aiMemory));
-            
-            // Only show notification if a memory was actually removed
-            if (initialLength !== this.aiMemory.length) {
-                this.showMemoryNotification('Memory Removed', '🗑️');
-            }
+            const currentMemory = this.loadAIMemory();
+            const newMemoryItem = {
+                content: typeof data === 'string' ? data : data.content,
+                timestamp: Date.now(),
+                type: typeof data === 'string' ? 'text' : (data.type || 'text')
+            };
+
+            const updatedMemory = this.deduplicateMemory([...currentMemory, newMemoryItem]);
+            localStorage.setItem('dostifyAIMemory', JSON.stringify(updatedMemory));
+            this.aiMemory = updatedMemory;
+            this.showMemoryNotification('Memory Added', '💭');
         } catch (error) {
-            console.error('Error removing AI memory:', error);
+            console.error('Error saving to AI memory:', error);
         }
     }
 
     clearAIMemory() {
         try {
+            localStorage.removeItem('dostifyAIMemory');
             this.aiMemory = [];
-            localStorage.setItem('dostifyAIMemory', JSON.stringify(this.aiMemory));
-            this.showMemoryNotification('All Memories Cleared', '🧹');
+            this.showMemoryNotification('Memory Cleared', '🧹');
         } catch (error) {
             console.error('Error clearing AI memory:', error);
         }
     }
 
-    showMemoryNotification(text, emoji) {
-        const notification = document.createElement('div');
-        notification.className = 'fixed bottom-4 right-4 bg-accent/90 text-white px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 flex items-center gap-2';
-        notification.style.zIndex = '1000';
-        notification.innerHTML = `
-            <span class="text-lg">${emoji}</span>
-            <span class="text-sm font-medium">${text}</span>
-        `;
-        
-        document.body.appendChild(notification);
-
-        // Animate in
-        requestAnimationFrame(() => {
-            notification.style.transform = 'translateY(0)';
-            notification.style.opacity = '1';
-        });
-
-        // Remove after 2 seconds
-        setTimeout(() => {
-            notification.style.transform = 'translateY(20px)';
-            notification.style.opacity = '0';
-            setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 300);
-        }, 2000);
-    }
-
     async getAIResponse(message) {
         try {
+            // Get recent and relevant memories
+            const recentMemories = this.aiMemory
+                .slice(0, 5)
+                .map(mem => mem.content)
+                .join('\n');
+
             const response = await fetch(CONFIG.API_URL, {
                 method: 'POST',
                 headers: {
@@ -278,7 +348,7 @@ class DostifyChat {
                     messages: [
                         {
                             role: 'system',
-                            content: `${CONFIG.SYSTEM_PROMPT}\n\nAvailable Memory:\n${JSON.stringify(this.aiMemory, null, 2)}\n\nYou can use <add_memory></add_memory> to store important information and <remove_memory></remove_memory> to remove it.`
+                            content: `${CONFIG.SYSTEM_PROMPT}\n\nRecent Memories:\n${recentMemories}\n\nYou can use <add_memory></add_memory> to store important information and <remove_memory></remove_memory> to remove it.`
                         },
                         ...this.messageHistory,
                         {
@@ -362,7 +432,7 @@ class DostifyChat {
         addMemoryMatches.forEach(match => {
             const memory = match[1].trim();
             if (memory) {
-                this.saveAIMemory(memory);
+                this.saveToAIMemory(memory);
             }
         });
 
@@ -418,6 +488,48 @@ class DostifyChat {
                 }
             }
         }
+    }
+
+    removeAIMemory(memory) {
+        try {
+            const initialLength = this.aiMemory.length;
+            this.aiMemory = this.aiMemory.filter(m => m.content !== memory);
+            localStorage.setItem('dostifyAIMemory', JSON.stringify(this.aiMemory));
+            
+            // Only show notification if a memory was actually removed
+            if (initialLength !== this.aiMemory.length) {
+                this.showMemoryNotification('Memory Removed', '🗑️');
+            }
+        } catch (error) {
+            console.error('Error removing AI memory:', error);
+        }
+    }
+
+    showMemoryNotification(text, emoji) {
+        const notification = document.createElement('div');
+        notification.className = 'fixed bottom-4 right-4 bg-accent/90 text-white px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 flex items-center gap-2';
+        notification.style.zIndex = '1000';
+        notification.innerHTML = `
+            <span class="text-lg">${emoji}</span>
+            <span class="text-sm font-medium">${text}</span>
+        `;
+        
+        document.body.appendChild(notification);
+
+        // Animate in
+        requestAnimationFrame(() => {
+            notification.style.transform = 'translateY(0)';
+            notification.style.opacity = '1';
+        });
+
+        // Remove after 2 seconds
+        setTimeout(() => {
+            notification.style.transform = 'translateY(20px)';
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 2000);
     }
 }
 

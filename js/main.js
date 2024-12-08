@@ -1,3 +1,6 @@
+
+import { DostifyChat } from './chat.js';
+
 // Mobile menu functionality
 document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -94,8 +97,9 @@ document.addEventListener('DOMContentLoaded', function() {
             inputField.focus();
         }
         // Add welcome message if it's the first time
+    
         if (!sessionStorage.getItem('welcomed')) {
-            const chat = new Chat();
+            const chat = new DostifyChat();
             chat.addMessage("👋 Hi there! I'm Dostify, your AI student companion. How can I help you today?", 'ai');
             sessionStorage.setItem('welcomed', 'true');
         }
@@ -126,5 +130,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Initialize chat functionality
-    const chat = new Chat();
+    const chat = new DostifyChat();
 });

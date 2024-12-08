@@ -1,6 +1,6 @@
 import CONFIG from './config.js';
 
-class DostifyChat {
+export class DostifyChat {
     constructor() {
         this.chatMessages = document.getElementById('chat-messages');
         this.chatForm = document.getElementById('chat-form');
@@ -341,6 +341,9 @@ class DostifyChat {
                 .map(mem => mem.content)
                 .join('\n');
 
+            // Get the current system prompt which will be automatically decoded
+            const systemPrompt = CONFIG.SYSTEM_PROMPT;
+
             const response = await fetch(CONFIG.API_URL, {
                 method: 'POST',
                 headers: {
@@ -351,7 +354,7 @@ class DostifyChat {
                     messages: [
                         {
                             role: 'system',
-                            content: `${CONFIG.SYSTEM_PROMPT}\n\nRecent Memories:\n${recentMemories}\n\nYou can use <add_memory></add_memory> to store important information and <remove_memory></remove_memory> to remove it.`
+                            content: `${systemPrompt}\n\nRecent Memories:\n${recentMemories}\n\nYou can use <add_memory></add_memory> to store important information and <remove_memory></remove_memory> to remove it.`
                         },
                         ...this.messageHistory,
                         {

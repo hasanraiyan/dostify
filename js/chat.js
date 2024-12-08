@@ -28,7 +28,7 @@ class DostifyChat {
             this.recognition.lang = 'en-US';
 
             this.recognition.onstart = () => {
-                console.log('Speech recognition started');
+                // console.log('Speech recognition started');
                 this.isListening = true;
                 const micButton = document.getElementById('voice-input');
                 if (micButton) {
@@ -40,7 +40,7 @@ class DostifyChat {
             };
 
             this.recognition.onend = () => {
-                console.log('Speech recognition ended');
+                // console.log('Speech recognition ended');
                 this.isListening = false;
                 const micButton = document.getElementById('voice-input');
                 if (micButton) {
@@ -52,9 +52,9 @@ class DostifyChat {
             };
 
             this.recognition.onresult = (event) => {
-                console.log('Speech recognition result received', event);
+                // console.log('Speech recognition result received', event);
                 const transcript = event.results[0][0].transcript;
-                console.log('Transcript:', transcript);
+                // console.log('Transcript:', transcript);
                 if (this.chatInput) {
                     this.chatInput.value = transcript;
                     this.chatForm.dispatchEvent(new Event('submit'));
@@ -105,7 +105,7 @@ class DostifyChat {
     }
 
     toggleVoiceInput() {
-        console.log('Toggling voice input');
+        // console.log('Toggling voice input');
         if (!this.recognition) {
             alert('Speech recognition is not supported in your browser. Please try using Chrome.');
             return;
@@ -113,10 +113,10 @@ class DostifyChat {
 
         try {
             if (this.isListening) {
-                console.log('Stopping recognition');
+                // console.log('Stopping recognition');
                 this.recognition.stop();
             } else {
-                console.log('Starting recognition');
+                // console.log('Starting recognition');
                 this.recognition.start();
             }
         } catch (error) {
@@ -374,7 +374,7 @@ class DostifyChat {
 
             const data = await response.json();
             const aiResponse = data.choices[0].message.content;
-            console.log('AI Response:', aiResponse);
+            // console.log('AI Response:', aiResponse);
 
             await this.processAIResponse(aiResponse);
 
@@ -455,8 +455,8 @@ class DostifyChat {
         const messageRegex = /<message>([\s\S]*?)<\/message>/g;
         const matches = Array.from(cleanResponse.matchAll(messageRegex));
         
-        console.log('Original Response:', response);
-        console.log('Found Messages:', matches);
+        // console.log('Original Response:', response);
+        // console.log('Found Messages:', matches);
 
         if (matches.length === 0) {
             // If no message tags found, treat the entire response as one message

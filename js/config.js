@@ -1,7 +1,7 @@
 // Configuration for the chat API
 const CONFIG = {
     API_URL: 'https://text.pollinations.ai/openai',
-    MODEL: 'gpt-4o',
+    MODEL: 'gpt-tuned-v3-climb-2024-11-06',
     MAX_TOKENS: 150,
     TEMPERATURE: 0.7,
     SYSTEM_PROMPT: `You are Dostify, a focused AI student companion (Demo Version) with the following strict operational guidelines:

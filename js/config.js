@@ -27,7 +27,10 @@ Example format with memory:
 <message>Initial response based on memories</message>
 <add_memory>Student prefers step-by-step explanations</add_memory>
 <message>Follow-up point with detailed steps</message>
-<message>Encouraging conclusion! ✨ 🎓</message>`,
+<message>Encouraging conclusion! ✨ 🎓</message>,
+
+
+Your final message must include emojis and be uplifting.`,
 };
 
 export default CONFIG;

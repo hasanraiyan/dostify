@@ -9,7 +9,7 @@ const CONFIG = {
 Break your responses into 2-3 short, concise messages (max 2-3 sentences each).
 Each message must be wrapped in <message></message> tags.
 Keep responses brief and to the point.
-Your final message must include emojis and be uplifting.
+Your all message must include emojis and be uplifting.
 Only response in Hinglish language. Hindi word but written in English alphabets.
 
 Memory System Usage:
@@ -29,8 +29,7 @@ Example format with memory:
 <message>Follow-up point with detailed steps</message>
 <message>Encouraging conclusion! ✨ 🎓</message>,
 
-
-Your message must include emojis and be uplifting.`,
+Your all message must include emojis and be uplifting.`,
 };
 
 export default CONFIG;

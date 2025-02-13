@@ -10,6 +10,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+    <!-- add the website icon here -->
+    <link rel="icon" href="icon-removebg-preview.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="js/config.js" type="module"></script>
     <script src="js/chat.js" type="module"></script>
@@ -505,9 +507,123 @@
         </div>
     </section>
 
+    <!-- App Download Section -->
+    <section id="download-app" class="py-10 bg-gradient-to-r from-primary to-secondary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="text-white space-y-6">
+                    <h2 class="text-4xl font-bold leading-tight">Download Dostify App</h2>
+                    <p class="text-lg opacity-90">Take your AI companion with you everywhere. Get instant support,
+                        motivation, and guidance right from your pocket.</p>
+
+                    <!-- Features List -->
+                    <div class="space-y-4 my-8">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-accent text-xl"></i>
+                            <span>24/7 Offline Access</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-accent text-xl"></i>
+                            <span>Voice Commands Support</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-accent text-xl"></i>
+                            <span>Study Progress Tracking</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-accent text-xl"></i>
+                            <span>Personalized Notifications</span>
+                        </div>
+                    </div>
+
+                    <!-- Download Buttons -->
+                    <!-- Download Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <!-- App Store Button (Coming Soon) -->
+                        <a href="#"
+                            class="inline-flex items-center px-6 py-3 bg-black rounded-xl opacity-50 cursor-not-allowed"
+                            aria-disabled="true">
+                            <div class="flex items-center">
+                                <i class="fab fa-apple text-3xl mr-3"></i>
+                                <div class="text-left">
+                                    <div class="text-xs">Coming Soon on the</div>
+                                    <div class="text-xl font-semibold">App Store</div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Android Direct Download Button -->
+                        <a href="https://drive.google.com/file/d/17n14fAT145gXgRXCcxYUVilew8pl5bpi/view"
+                            class="inline-flex items-center px-6 py-3 bg-black rounded-xl hover:bg-gray-900 transition duration-300 transform hover:-translate-y-1">
+                            <div class="flex items-center">
+                                <i class="fas fa-download text-3xl mr-3"></i>
+                                <div class="text-left">
+                                    <div class="text-xs">Direct Download for</div>
+                                    <div class="text-xl font-semibold">Android APK</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Notice for Future Store Releases -->
+                    <div class="mt-4 text-center text-sm text-white-500">
+                        App Store &amp; Play Store versions coming soon.
+                    </div>
+
+
+                    <!-- Download Stats -->
+                    <!-- <div class="flex gap-8 mt-8">
+                        <div>
+                            <div class="text-3xl font-bold">100K+</div>
+                            <div class="text-sm opacity-80">Downloads</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold">4.8/5</div>
+                            <div class="text-sm opacity-80">User Rating</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold">50K+</div>
+                            <div class="text-sm opacity-80">Active Users</div>
+                        </div>
+                    </div> -->
+                </div>
+
+
+                <!-- Phone Mockup with Fixed Perspective -->
+                <div class="flex justify-center">
+                    <!-- Container with fixed perspective and angle -->
+                    <div class="relative hidden md:block" style="transform: perspective(-1000px) rotateY(-6deg);">
+                        <!-- Background Gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-20 rounded-3xl">
+                        </div>
+
+                        <!-- Phone Mockup Image with Size Control -->
+                        <div class="flex gap-2">
+                            <img src="./app-icon.png" alt="Dostify App Screenshot"
+                                class="relative z-10 mx-auto h-96 max-w-sm rounded-xl shadow-2xl">
+                            <!-- add another image alseo -->
+                            <img src="./app-icon02.png" alt="Dostify App Screenshot"
+                                class="relative z-10 mx-auto h-96 max-w-sm rounded-xl shadow-2xl">
+
+                        </div>
+                        <!-- Quick Download Button - Mobile Only -->
+                        <div class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 md:hidden">
+                            <a href="#"
+                                class="bg-accent text-white px-8 py-3 rounded-full font-semibold shadow-lg transition duration-300 hover:bg-accent/90">
+                                Download Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
 
     <!-- Footer Section -->
-    <footer class="bg-secondary text-white py-16">
+    <footer class="bg-gradient-to-r from-primary to-secondary text-white  py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
@@ -564,12 +680,15 @@
         <div id="chat-interface"
             class="hidden fixed sm:absolute bottom-0 right-0 w-full sm:w-[400px] h-[100vh] sm:h-[650px] bg-white sm:rounded-2xl shadow-2xl border-0 sm:border border-accent/10 flex flex-col overflow-hidden backdrop-blur-lg">
             <!-- Chat Header -->
-            <div class="bg-gradient-to-r from-accent via-accent/90 to-accent p-3 sm:p-4 flex items-center justify-between shadow-lg">
+            <div
+                class="bg-gradient-to-r from-accent via-accent/90 to-accent p-3 sm:p-4 flex items-center justify-between shadow-lg">
                 <!-- Left side: Logo and Text -->
                 <div class="flex items-center gap-2 sm:gap-3">
                     <!-- Logo container with better mobile scaling -->
-                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
-                        <img src="./icon-removebg-preview.png" alt="Dostify Logo" class="w-6 h-6 sm:w-8 sm:h-8 object-contain">
+                    <div
+                        class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
+                        <img src="./icon-removebg-preview.png" alt="Dostify Logo"
+                            class="w-6 h-6 sm:w-8 sm:h-8 object-contain">
                     </div>
                     <!-- Text container with overflow protection -->
                     <div class="min-w-0">
@@ -577,19 +696,19 @@
                         <p class="text-white/80 text-xs sm:text-sm truncate">AI Student Companion</p>
                     </div>
                 </div>
-            
+
                 <!-- Right side: Buttons -->
                 <div class="flex gap-1 sm:gap-2">
                     <!-- Clear Chat Button -->
-                    <button id="clear-chat" 
-                            class="text-white/90 hover:text-white transition-all duration-300 w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/10 flex items-center justify-center"
-                            title="Clear Chat History">
+                    <button id="clear-chat"
+                        class="text-white/90 hover:text-white transition-all duration-300 w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/10 flex items-center justify-center"
+                        title="Clear Chat History">
                         <i class="fas fa-trash-alt text-sm sm:text-base"></i>
                     </button>
-                    
+
                     <!-- Close Button -->
-                    <button id="close-chat" 
-                            class="text-white/90 hover:text-white transition-all duration-300 w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/10 flex items-center justify-center">
+                    <button id="close-chat"
+                        class="text-white/90 hover:text-white transition-all duration-300 w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/10 flex items-center justify-center">
                         <i class="fas fa-times text-sm sm:text-base"></i>
                     </button>
                 </div>

@@ -30,7 +30,7 @@ Example format with memory:
 <message>Encouraging conclusion! ✨ 🎓</message>,
 
 
-Your final message must include emojis and be uplifting.`,
+Your message must include emojis and be uplifting.`,
 };
 
 export default CONFIG;

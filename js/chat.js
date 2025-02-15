@@ -13,7 +13,86 @@ export class DostifyChat {
         this.initializeEventListeners();
         this.loadChatHistory();
         this.initializeSpeechRecognition();
+        this.initializeEmojiPicker();
+        this.initializeMemoryModal(); // Initialize Memory Modal
     }
+
+    initializeMemoryModal() {
+        const memoryButton = document.getElementById('memory-button');
+        const memoryModal = document.getElementById('memory-modal');
+        const memoryModalCloseButton = document.getElementById('memory-modal-close');
+        const memoryList = document.getElementById('memory-list');
+        const clearMemoryButton = document.getElementById('clear-memory-button');
+
+        if (!memoryButton || !memoryModal || !memoryModalCloseButton || !memoryList || !clearMemoryButton) return;
+
+        memoryButton.addEventListener('click', () => {
+            this.populateMemoryList(memoryList); // Populate memory list when modal opens
+            memoryModal.style.display = "block";
+        });
+
+        memoryModalCloseButton.addEventListener('click', () => {
+            memoryModal.style.display = "none";
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === memoryModal) {
+                memoryModal.style.display = "none";
+            }
+        });
+
+        clearMemoryButton.addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear AI memory? This will clear Dostify\'s long-term memory.')) {
+                this.clearAIMemory();
+                memoryModal.style.display = "none"; // Hide modal after clearing
+            }
+        });
+    }
+
+    populateMemoryList(memoryListElement) {
+        memoryListElement.innerHTML = ''; // Clear existing list
+        if (this.aiMemory.length === 0) {
+            const listItem = document.createElement('li');
+            listItem.textContent = 'Dostify\'s memory is currently empty.';
+            memoryListElement.appendChild(listItem);
+            return;
+        }
+        this.aiMemory.forEach((memoryItem) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = memoryItem.content;
+            memoryListElement.appendChild(listItem);
+        });
+    }
+
+
+    initializeEmojiPicker() {
+        const emojiPickerElement = document.getElementById('emoji-picker');
+        const emojiButton = document.getElementById('emoji-button');
+
+        if (!emojiPickerElement || !emojiButton) return;
+
+        emojiButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            emojiPickerElement.classList.toggle('hidden');
+        });
+
+        emojiPickerElement.addEventListener('emoji-click', event => {
+            if (this.chatInput) {
+                this.chatInput.value += event.detail.unicode;
+                this.chatInput.focus();
+                emojiPickerElement.classList.add('hidden');
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!emojiPickerElement.classList.contains('hidden') &&
+                !emojiPickerElement.contains(event.target) &&
+                !emojiButton.contains(event.target)) {
+                emojiPickerElement.classList.add('hidden');
+            }
+        });
+    }
+
 
     initializeSpeechRecognition() {
         if (!('webkitSpeechRecognition' in window)) {
@@ -127,8 +206,11 @@ export class DostifyChat {
 
     async handleSubmit(e) {
         e.preventDefault();
-        const message = this.chatInput.value.trim();
+        let message = this.chatInput.value.trim();
         if (!message) return;
+
+        // Process markdown formatting for user message
+        message = this.processMarkdown(message);
 
         // Add user message to chat
         this.addMessage(message, 'user');
@@ -148,6 +230,16 @@ export class DostifyChat {
                 this.hideTypingIndicator();
             });
     }
+
+    processMarkdown(text) {
+        // Basic bold and italic markdown processing
+        text = text.replace(/\*\*([^\*]+)\*\*/g, '<b>$1</b>'); // **bold**
+        text = text.replace(/\*([^\*]+)\*/g, '<i>$1</i>');   // *italic*
+        text = text.replace(/__([^_]+)__/g, '<b>$1</b>'); // __bold__
+        text = text.replace(/_([^_]+)_/g, '<i>$1</i>');     // _italic_
+        return text;
+    }
+
 
     loadChatHistory() {
         try {
@@ -170,12 +262,12 @@ export class DostifyChat {
             const savedMessages = localStorage.getItem('dostifyChatHistory');
             let messages = savedMessages ? JSON.parse(savedMessages) : [];
             messages.push({ content: message, sender, isError, timestamp: new Date().toISOString() });
-            
+
             // Keep only last 50 messages
             if (messages.length > 50) {
                 messages = messages.slice(-50);
             }
-            
+
             localStorage.setItem('dostifyChatHistory', JSON.stringify(messages));
         } catch (error) {
             console.error('Error saving chat history:', error);
@@ -196,25 +288,25 @@ export class DostifyChat {
     addMessage(message, sender, isError = false, saveToHistory = true) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `flex items-start gap-3 ${sender === 'user' ? 'flex-row-reverse user-message' : 'ai-message'} ${sender === 'user' ? 'mb-3' : 'mb-[2px]'} w-full`;
-        
+
         const lastMessage = this.chatMessages.lastElementChild;
-        const isConsecutiveAI = lastMessage && 
-            lastMessage.classList.contains('ai-message') && 
+        const isConsecutiveAI = lastMessage &&
+            lastMessage.classList.contains('ai-message') &&
             sender === 'ai';
 
         const messageWrapper = document.createElement('div');
-        messageWrapper.className = isConsecutiveAI 
-            ? 'ml-[3.5rem] mt-[2px] w-full' 
+        messageWrapper.className = isConsecutiveAI
+            ? 'ml-[3.5rem] mt-[2px] w-full'
             : (sender === 'user' ? 'ml-auto' : 'flex-1');
 
         if (!isConsecutiveAI) {
             const iconDiv = document.createElement('div');
             iconDiv.className = `w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 border ${
-                sender === 'user' 
-                    ? 'bg-primary/10 border-primary/20' 
+                sender === 'user'
+                    ? 'bg-primary/10 border-primary/20'
                     : 'bg-accent/10 border-accent/20'
             }`;
-            
+
             if (sender === 'user') {
                 const icon = document.createElement('i');
                 icon.className = 'fas fa-user text-primary text-sm';
@@ -226,32 +318,32 @@ export class DostifyChat {
                 img.className = 'w-full h-full object-cover rounded-full';
                 iconDiv.appendChild(img);
             }
-            
+
             messageDiv.appendChild(iconDiv);
         }
-        
+
         const messageContent = document.createElement('div');
         messageContent.className = `rounded-2xl py-2.5 px-4 shadow-sm transition-all ${
             sender === 'user'
                 ? 'bg-gradient-to-br from-primary to-primary/90 text-white rounded-tr-sm w-[85%] hover:shadow-md ml-auto'
-                : 'bg-white text-gray-700 rounded-tl-sm w-[85%] border border-gray-100 hover:shadow-md' +
+                : 'bg-white text-gray-700 rounded-tl-sm w-[85%] border border-gray-100 hover:shadow-md ai-message-bg' +
                   (isError ? ' border-red-300 bg-red-50' : '')
         }`;
-        
+
         const messageText = document.createElement('p');
         messageText.className = 'leading-relaxed text-[15px]';
-        messageText.textContent = message;
-        
+        messageText.innerHTML = message; // Use innerHTML to render formatted text
+
         messageContent.appendChild(messageText);
         messageWrapper.appendChild(messageContent);
         messageDiv.appendChild(messageWrapper);
-        
+
         this.chatMessages.appendChild(messageDiv);
-        
+
         if (saveToHistory) {
             this.saveChatHistory(message, sender, isError);
         }
-        
+
         this.chatMessages.scrollTo({
             top: this.chatMessages.scrollHeight,
             behavior: 'smooth'
@@ -278,7 +370,7 @@ export class DostifyChat {
     playMessageSound(elementId) {
         const audio = document.getElementById(elementId);
         if (audio) {
-            audio.volume = 0.5; // Lower volume
+            audio.volume = 0.5;
             audio.currentTime = 0;
             audio.play().catch(e => console.log('Audio play error:', e));
         }
@@ -354,7 +446,7 @@ export class DostifyChat {
                     messages: [
                         {
                             role: 'system',
-                            content: `${systemPrompt}\n\nRecent Memories:\n${recentMemories}\n\nYou can use <add_memory></add_memory> to store important information and <remove_memory></remove_memory> to remove it.`
+                            content: `${systemPrompt}\n\nRecent Memories:\n${recentMemories}\n\nYou can use <add_memory></add_memory> to store important information and <remove_memory></remove_memory> to remove it.  Please use basic markdown formatting like *italic* and **bold** in your responses where appropriate to enhance readability.`
                         },
                         ...this.messageHistory,
                         {
@@ -432,7 +524,7 @@ export class DostifyChat {
         // Extract memory commands
         const addMemoryRegex = /<add_memory>([\s\S]*?)<\/add_memory>/g;
         const removeMemoryRegex = /<remove_memory>([\s\S]*?)<\/remove_memory>/g;
-        
+
         // Process add memory commands
         const addMemoryMatches = Array.from(response.matchAll(addMemoryRegex));
         addMemoryMatches.forEach(match => {
@@ -454,12 +546,13 @@ export class DostifyChat {
         // Remove memory commands from response
         let cleanResponse = response.replace(addMemoryRegex, '').replace(removeMemoryRegex, '').trim();
 
+        // Process markdown formatting for AI response
+        cleanResponse = this.processMarkdown(cleanResponse);
+
         // Use regex to match content between message tags
         const messageRegex = /<message>([\s\S]*?)<\/message>/g;
         const matches = Array.from(cleanResponse.matchAll(messageRegex));
-        
-        // console.log('Original Response:', response);
-        // console.log('Found Messages:', matches);
+
 
         if (matches.length === 0) {
             // If no message tags found, treat the entire response as one message
@@ -481,7 +574,7 @@ export class DostifyChat {
 
                 // Add message to chat
                 this.addMessage(messageContent, 'ai');
-                
+
                 // Add to message history
                 this.messageHistory.push({
                     role: 'assistant',
@@ -501,7 +594,7 @@ export class DostifyChat {
             const initialLength = this.aiMemory.length;
             this.aiMemory = this.aiMemory.filter(m => m.content !== memory);
             localStorage.setItem('dostifyAIMemory', JSON.stringify(this.aiMemory));
-            
+
             // Only show notification if a memory was actually removed
             if (initialLength !== this.aiMemory.length) {
                 this.showMemoryNotification('Memory Removed', '🗑️');
@@ -513,13 +606,13 @@ export class DostifyChat {
 
     showMemoryNotification(text, emoji) {
         const notification = document.createElement('div');
-        notification.className = 'fixed bottom-4 right-4 bg-accent/90 text-white px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 flex items-center gap-2';
+        notification.className = 'fixed bottom-4 right-4 bg-accent/90 text-white px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 flex items-center gap-2 memory-notification'; // Added memory-notification class for animation
         notification.style.zIndex = '1000';
         notification.innerHTML = `
             <span class="text-lg">${emoji}</span>
             <span class="text-sm font-medium">${text}</span>
         `;
-        
+
         document.body.appendChild(notification);
 
         // Animate in

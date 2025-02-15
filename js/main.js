@@ -1,4 +1,3 @@
-
 import { DostifyChat } from './chat.js';
 
 // Mobile menu functionality
@@ -97,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
             inputField.focus();
         }
         // Add welcome message if it's the first time
-    
+
         if (!sessionStorage.getItem('welcomed')) {
             const chat = new DostifyChat();
             chat.addMessage("👋 Hi there! I'm Dostify, your AI student companion. How can I help you today?", 'ai');
@@ -126,6 +125,15 @@ document.addEventListener('DOMContentLoaded', function() {
         closeButton.addEventListener('click', () => {
             chatInterface.classList.add('hidden');
             chatToggle.classList.remove('hidden');
+        });
+    }
+
+     // Handle memory button (moved initialization to chat.js)
+    const memoryButton = document.getElementById('memory-button');
+    const memoryModal = document.getElementById('memory-modal');
+    if (memoryButton && memoryModal) {
+        memoryButton.addEventListener('click', () => {
+            memoryModal.style.display = "block";
         });
     }
 

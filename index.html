@@ -13,11 +13,14 @@
     <!-- add the website icon here -->
     <link rel="icon" href="icon-removebg-preview.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.css">
     <script src="js/config.js" type="module"></script>
     <script src="js/chat.js" type="module"></script>
     <script src="js/main.js" type="module"></script>
     <!-- Sample Prompts Script -->
     <script src="js/sample-prompts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js" type="module"></script>
+
     <!-- Audio Elements -->
     <script>
         tailwind.config = {
@@ -168,6 +171,72 @@
         .memory-notification {
             animation: slideIn 0.3s ease-out forwards;
         }
+
+        /* Emoji Picker Styling */
+        emoji-picker {
+            position: absolute; /* Changed from fixed to absolute */
+            bottom: 100%; /* Position above the button */
+            right: 0;
+            z-index: 101; /* Ensure it's above chat interface */
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background-color: white;
+        }
+
+        /* Memory Modal Styling */
+        #memory-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1001; /* Above chat widget */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+        }
+
+        .memory-modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 0.5rem;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-height: 70%;
+            overflow-y: auto;
+            position: relative; /* For close button positioning */
+        }
+
+        .memory-close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .memory-close-button:hover,
+        .memory-close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #memory-list {
+            padding-left: 20px;
+        }
+
+        #memory-list li {
+            list-style-type: disc;
+            margin-bottom: 5px;
+            word-wrap: break-word; /* prevent long words from breaking layout */
+        }
+
+
     </style>
 </head>
 
@@ -509,6 +578,65 @@
                         Try this
                     </button>
                 </div>
+
+                <!-- Time Management Card -->
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[200px]">
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <span class="text-3xl mr-3">⏰</span>
+                            <h3 class="text-xl font-semibold text-indigo-600">Time Management</h3>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-lg leading-relaxed line-clamp-2">
+                            I'm struggling to balance study time with extracurricular activities. How can I manage my time better?
+                        </p>
+                    </div>
+                    <button
+                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors duration-200 group"
+                        data-prompt="I'm struggling to balance study time with extracurricular activities. How can I manage my time better?">
+                        Try this
+                    </button>
+                </div>
+
+                <!-- Exam Preparation Card -->
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[200px]">
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <span class="text-3xl mr-3">📝</span>
+                            <h3 class="text-xl font-semibold text-pink-600">Exam Preparation</h3>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-lg leading-relaxed line-clamp-2">
+                            Suggest effective strategies for preparing for a major exam in a week.
+                        </p>
+                    </div>
+                    <button
+                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-pink-50 text-pink-600 rounded-lg hover:bg-pink-100 transition-colors duration-200 group"
+                        data-prompt="Suggest effective strategies for preparing for a major exam in a week.">
+                        Try this
+                    </button>
+                </div>
+
+                <!-- Motivation & Goal Setting Card -->
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[200px]">
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <span class="text-3xl mr-3">🚀</span>
+                            <h3 class="text-xl font-semibold text-lime-600">Motivation & Goals</h3>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-lg leading-relaxed line-clamp-2">
+                            Help me set realistic academic goals for this semester and stay motivated to achieve them.
+                        </p>
+                    </div>
+                    <button
+                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-lime-50 text-lime-600 rounded-lg hover:bg-lime-100 transition-colors duration-200 group"
+                        data-prompt="Help me set realistic academic goals for this semester and stay motivated to achieve them.">
+                        Try this
+                    </button>
+                </div>
+
+            
             </div>
         </div>
     </section>
@@ -583,7 +711,7 @@
 
                     <!-- Notice for Future Store Releases -->
                     <div class="mt-4 text-center text-sm text-white-500">
-                        App Store &amp; Play Store versions coming soon.
+                        App Store & Play Store versions coming soon.
                     </div>
 
 
@@ -668,8 +796,8 @@
                 </div>
             </div>
             <div class="text-center mt-8 text-sm text-gray-300">
-                &copy; 2025 Dostify by Team Dostify. All rights reserved.
-                <!-- &copy; 2024 Dostify by Raiyan Hasan -->
+                © 2025 Dostify by Team Dostify. All rights reserved.
+                <!-- © 2024 Dostify by Raiyan Hasan -->
             </div>
         </div>
     </footer>
@@ -709,6 +837,12 @@
 
                 <!-- Right side: Buttons -->
                 <div class="flex gap-1 sm:gap-2">
+                    <!-- Memory Button -->
+                    <button id="memory-button"
+                        class="text-white/90 hover:text-white transition-all duration-300 w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/10 flex items-center justify-center"
+                        title="View & Clear Memory">
+                        <i class="fas fa-brain text-sm sm:text-base"></i>
+                    </button>
                     <!-- Clear Chat Button -->
                     <button id="clear-chat"
                         class="text-white/90 hover:text-white transition-all duration-300 w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/10 flex items-center justify-center"
@@ -753,12 +887,13 @@
                             <div class="w-2 h-2 rounded-full bg-gray-300"></div>
                             <div class="w-2 h-2 rounded-full bg-gray-300"></div>
                         </div>
+                        <span class="typing-text text-gray-700 text-sm">Dostify is thinking...</span> <!-- Typing indicator text -->
                     </div>
                 </div>
             </div>
 
             <!-- Chat Input -->
-            <div class="p-4 bg-white border-t border-gray-100">
+            <div class="p-4 bg-white border-t border-gray-100 relative"> <!-- position relative for emoji picker -->
                 <form id="chat-form" class="flex gap-3 items-center">
                     <button type="button" id="voice-input"
                         class="w-11 h-11 rounded-full bg-gray-100 hover:bg-gray-200/80 flex items-center justify-center transition-all duration-300 flex-shrink-0 hover:shadow-md">
@@ -772,6 +907,7 @@
                             class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 w-8 h-8 flex items-center justify-center">
                             <i class="far fa-smile text-lg"></i>
                         </button>
+                        <emoji-picker id="emoji-picker" class="hidden"></emoji-picker> <!-- Emoji Picker added here -->
                     </div>
                     <button type="submit"
                         class="bg-accent hover:bg-accent/90 text-white p-2 rounded-full transition-all duration-300 w-11 h-11 flex items-center justify-center flex-shrink-0 hover:shadow-md group">
@@ -782,6 +918,24 @@
             </div>
         </div>
     </div>
+
+    <!-- Memory Modal -->
+    <div id="memory-modal" class="memory-modal">
+        <div class="memory-modal-content">
+            <span class="memory-close-button" id="memory-modal-close">×</span>
+            <h2>Dostify's Memory</h2>
+            <ul id="memory-list">
+                <!-- Memory items will be loaded here by JavaScript -->
+            </ul>
+            <div class="text-center mt-6">
+                <button id="clear-memory-button"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                    Clear Memory
+                </button>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Audio Elements -->
     <audio id="message-sent" src="https://assets.mixkit.co/sfx/preview/mixkit-message-pop-alert-2354.mp3"

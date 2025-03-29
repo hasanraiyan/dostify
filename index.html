@@ -502,86 +502,141 @@
         </div>
     </section>
 
-    <section id="how-it-works" class="py-24 bg-page-bg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-20 text-dark">How Dostify Works</h2>
-            <div class="grid md:grid-cols-3 gap-10 md:gap-16">
-                <!-- Step Card Example (Repeat for others) -->
-                <div
-                    class="text-center flex flex-col items-center p-6 rounded-lg transition-smooth hover:bg-gray-50/80 group">
-                    <div
-                        class="w-16 h-16 bg-gradient-to-br from-primary to-blue-500 text-white rounded-full flex items-center justify-center text-2xl font-semibold mx-auto mb-6 shadow-lg transform group-hover:scale-105 transition-transform duration-300 ease-out">
-                        1</div>
-                    <h3 class="text-xl font-semibold mb-3 text-dark">Start a Chat</h3>
-                    <p class="text-gray-600 text-base leading-relaxed">Simply click the chat button anytime you need
-                        support or guidance.</p>
+    <section id="how-it-works"
+        class="py-24 lg:py-32 bg-gradient-to-b from-white via-gray-50/50 to-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-30"
+            style="background-image: radial-gradient(circle at 80% 20%, theme('colors.primary/5') 0%, transparent 40%), radial-gradient(circle at 20% 80%, theme('colors.accent/5') 0%, transparent 35%);">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20 lg:mb-24">
+                <h2 class="text-4xl lg:text-5xl font-bold text-dark mb-4 tracking-tight">How Dostify Works</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">Getting started with your AI
+                    companion is simple. Follow these three easy steps:</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-10 md:gap-12 lg:gap-16 relative">
+                <!-- Connecting Lines (Desktop Only) - Optional visual cue -->
+                <div class="hidden md:block absolute top-1/2 left-0 right-0 h-px -mt-4 transform -translate-y-1/2 z-0">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+                        class="absolute top-0 left-0 overflow-visible">
+                        <line x1="16.66%" y1="50%" x2="83.33%" y2="50%" stroke="theme('colors.gray.200/80')"
+                            stroke-width="2" stroke-dasharray="8 8" />
+                    </svg>
                 </div>
+
+                <!-- Step 1 Card -->
                 <div
-                    class="text-center flex flex-col items-center p-6 rounded-lg transition-smooth hover:bg-gray-50/80 group">
+                    class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl border border-gray-100/80 group transition-all duration-300 ease-out transform hover:-translate-y-2 relative z-10 flex flex-col items-center text-center hover:border-primary/30">
                     <div
-                        class="w-16 h-16 bg-gradient-to-br from-primary to-blue-500 text-white rounded-full flex items-center justify-center text-2xl font-semibold mx-auto mb-6 shadow-lg transform group-hover:scale-105 transition-transform duration-300 ease-out">
-                        2</div>
-                    <h3 class="text-xl font-semibold mb-3 text-dark">Share Your Needs</h3>
-                    <p class="text-gray-600 text-base leading-relaxed">Tell Dostify what's on your mind – academic
-                        stress, career questions, or just needing to talk.</p>
+                        class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-primary/90 to-blue-500/80 text-white rounded-full flex items-center justify-center text-3xl font-semibold mx-auto mb-6 shadow-lg transform group-hover:scale-105 transition-transform duration-300 ease-out border-4 border-white/50 ring-1 ring-primary/20">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-3 text-dark">1. Start a Chat</h3>
+                    <p class="text-gray-600 text-base leading-relaxed flex-grow">Simply click the chat button anytime
+                        you need support or guidance.</p>
                 </div>
+
+                <!-- Step 2 Card -->
                 <div
-                    class="text-center flex flex-col items-center p-6 rounded-lg transition-smooth hover:bg-gray-50/80 group">
+                    class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl border border-gray-100/80 group transition-all duration-300 ease-out transform hover:-translate-y-2 relative z-10 flex flex-col items-center text-center hover:border-primary/30">
                     <div
-                        class="w-16 h-16 bg-gradient-to-br from-primary to-blue-500 text-white rounded-full flex items-center justify-center text-2xl font-semibold mx-auto mb-6 shadow-lg transform group-hover:scale-105 transition-transform duration-300 ease-out">
-                        3</div>
-                    <h3 class="text-xl font-semibold mb-3 text-dark">Receive Support</h3>
-                    <p class="text-gray-600 text-base leading-relaxed">Get personalized advice, helpful resources, and
-                        encouraging responses instantly.</p>
+                        class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-primary/90 to-blue-500/80 text-white rounded-full flex items-center justify-center text-3xl font-semibold mx-auto mb-6 shadow-lg transform group-hover:scale-105 transition-transform duration-300 ease-out border-4 border-white/50 ring-1 ring-primary/20">
+                        <i class="fas fa-pen-alt"></i> <!-- Changed icon -->
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-3 text-dark">2. Share Your Needs</h3>
+                    <p class="text-gray-600 text-base leading-relaxed flex-grow">Tell Dostify what's on your mind –
+                        academic stress, career questions, or just needing to talk.</p>
+                </div>
+
+                <!-- Step 3 Card -->
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl border border-gray-100/80 group transition-all duration-300 ease-out transform hover:-translate-y-2 relative z-10 flex flex-col items-center text-center hover:border-primary/30">
+                    <div
+                        class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-primary/90 to-blue-500/80 text-white rounded-full flex items-center justify-center text-3xl font-semibold mx-auto mb-6 shadow-lg transform group-hover:scale-105 transition-transform duration-300 ease-out border-4 border-white/50 ring-1 ring-primary/20">
+                        <i class="fas fa-lightbulb"></i> <!-- Changed icon -->
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-3 text-dark">3. Receive Support</h3>
+                    <p class="text-gray-600 text-base leading-relaxed flex-grow">Get personalized advice, helpful
+                        resources, and encouraging responses instantly.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="benefits" class="py-24 bg-section-bg-subtle section-gradient-bottom">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-20 text-dark">Benefits of Using Dostify</h2>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Benefit Card Example (Repeat for others) -->
+
+    <section id="benefits"
+        class="py-24 lg:py-32 bg-gradient-to-b from-white via-emerald-50/30 to-white relative overflow-hidden">
+        <!-- Subtle background shapes/glows -->
+        <div
+            class="absolute top-1/4 left-[-5%] w-72 h-72 bg-accent/5 rounded-full filter blur-3xl opacity-50 animate-pulse-subtle animation-delay-500 z-0">
+        </div>
+        <div
+            class="absolute bottom-1/4 right-[-8%] w-96 h-96 bg-primary/5 rounded-full filter blur-3xl opacity-40 animate-pulse-subtle animation-delay-1000 z-0">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20 lg:mb-24">
+                <h2 class="text-4xl lg:text-5xl font-bold text-dark mb-4 tracking-tight">Unlock Your Potential</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">Discover the positive impact Dostify
+                    can have on your academic journey and overall well-being.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+                <!-- Benefit Card 1: Improved Well-being -->
                 <div
-                    class="bg-white p-8 rounded-xl shadow-card border border-gray-100/90 group transition-smooth transform hover:-translate-y-1.5 hover:scale-[1.02] hover:border-accent/40 flex flex-col items-start">
-                    <div
-                        class="p-3 rounded-full bg-gradient-to-br from-accent/10 to-green-500/5 text-accent mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm">
-                        <i class="fas fa-brain text-3xl w-8 h-8 flex items-center justify-center"></i>
+                    class="bg-white/80 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl border border-gray-100/70 group transition-all duration-300 ease-out transform hover:-translate-y-2 hover:border-accent/40 flex flex-col h-full">
+                    <div class="mb-6">
+                        <div
+                            class="w-14 h-14 lg:w-16 lg:h-16 rounded-xl bg-gradient-to-br from-accent to-green-400 text-white flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:shadow-accent/20 transition-all duration-300 group-hover:scale-105">
+                            <i class="fas fa-brain text-2xl lg:text-3xl"></i>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2 text-dark">Improved Well-being</h3>
-                    <p class="text-gray-600 text-base leading-relaxed">Develop emotional resilience and gain tools for
-                        mental health awareness.</p>
+                    <h3 class="text-lg lg:text-xl font-semibold mb-3 text-dark">Improved Well-being</h3>
+                    <p class="text-gray-600 text-sm lg:text-base leading-relaxed flex-grow">Develop emotional resilience
+                        and gain practical tools for managing stress and promoting mental health awareness.</p>
                 </div>
+
+                <!-- Benefit Card 2: Enhanced Focus -->
                 <div
-                    class="bg-white p-8 rounded-xl shadow-card border border-gray-100/90 group transition-smooth transform hover:-translate-y-1.5 hover:scale-[1.02] hover:border-accent/40 flex flex-col items-start">
-                    <div
-                        class="p-3 rounded-full bg-gradient-to-br from-accent/10 to-green-500/5 text-accent mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm">
-                        <i class="fas fa-chart-line text-3xl w-8 h-8 flex items-center justify-center"></i>
+                    class="bg-white/80 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl border border-gray-100/70 group transition-all duration-300 ease-out transform hover:-translate-y-2 hover:border-accent/40 flex flex-col h-full">
+                    <div class="mb-6">
+                        <div
+                            class="w-14 h-14 lg:w-16 lg:h-16 rounded-xl bg-gradient-to-br from-accent to-green-400 text-white flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:shadow-accent/20 transition-all duration-300 group-hover:scale-105">
+                            <i class="fas fa-chart-line text-2xl lg:text-3xl"></i>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2 text-dark">Enhanced Focus</h3>
-                    <p class="text-gray-600 text-base leading-relaxed">Boost academic performance with better time
-                        management and study strategies.</p>
+                    <h3 class="text-lg lg:text-xl font-semibold mb-3 text-dark">Enhanced Focus</h3>
+                    <p class="text-gray-600 text-sm lg:text-base leading-relaxed flex-grow">Boost academic performance
+                        with personalized study strategies and effective time management techniques.</p>
                 </div>
+
+                <!-- Benefit Card 3: Increased Confidence -->
                 <div
-                    class="bg-white p-8 rounded-xl shadow-card border border-gray-100/90 group transition-smooth transform hover:-translate-y-1.5 hover:scale-[1.02] hover:border-accent/40 flex flex-col items-start">
-                    <div
-                        class="p-3 rounded-full bg-gradient-to-br from-accent/10 to-green-500/5 text-accent mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm">
-                        <i class="fas fa-users text-3xl w-8 h-8 flex items-center justify-center"></i>
+                    class="bg-white/80 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl border border-gray-100/70 group transition-all duration-300 ease-out transform hover:-translate-y-2 hover:border-accent/40 flex flex-col h-full">
+                    <div class="mb-6">
+                        <div
+                            class="w-14 h-14 lg:w-16 lg:h-16 rounded-xl bg-gradient-to-br from-accent to-green-400 text-white flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:shadow-accent/20 transition-all duration-300 group-hover:scale-105">
+                            <i class="fas fa-users text-2xl lg:text-3xl"></i>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2 text-dark">Increased Confidence</h3>
-                    <p class="text-gray-600 text-base leading-relaxed">Build confidence in social interactions, academic
-                        pursuits, and personal growth.</p>
+                    <h3 class="text-lg lg:text-xl font-semibold mb-3 text-dark">Increased Confidence</h3>
+                    <p class="text-gray-600 text-sm lg:text-base leading-relaxed flex-grow">Build self-assurance in
+                        social interactions, academic presentations, and personal goal setting.</p>
                 </div>
+
+                <!-- Benefit Card 4: Clearer Direction -->
                 <div
-                    class="bg-white p-8 rounded-xl shadow-card border border-gray-100/90 group transition-smooth transform hover:-translate-y-1.5 hover:scale-[1.02] hover:border-accent/40 flex flex-col items-start">
-                    <div
-                        class="p-3 rounded-full bg-gradient-to-br from-accent/10 to-green-500/5 text-accent mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm">
-                        <i class="fas fa-compass text-3xl w-8 h-8 flex items-center justify-center"></i>
+                    class="bg-white/80 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl border border-gray-100/70 group transition-all duration-300 ease-out transform hover:-translate-y-2 hover:border-accent/40 flex flex-col h-full">
+                    <div class="mb-6">
+                        <div
+                            class="w-14 h-14 lg:w-16 lg:h-16 rounded-xl bg-gradient-to-br from-accent to-green-400 text-white flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:shadow-accent/20 transition-all duration-300 group-hover:scale-105">
+                            <i class="fas fa-compass text-2xl lg:text-3xl"></i>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2 text-dark">Clearer Direction</h3>
-                    <p class="text-gray-600 text-base leading-relaxed">Make informed decisions about your academic
-                        journey and future career path.</p>
+                    <h3 class="text-lg lg:text-xl font-semibold mb-3 text-dark">Clearer Direction</h3>
+                    <p class="text-gray-600 text-sm lg:text-base leading-relaxed flex-grow">Make informed decisions
+                        about your future with insights into career paths and academic planning.</p>
                 </div>
             </div>
         </div>

@@ -10,18 +10,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <!-- add the website icon here -->
     <link rel="icon" href="icon-removebg-preview.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.css">
     <script src="js/config.js" type="module"></script>
     <script src="js/chat.js" type="module"></script>
     <script src="js/main.js" type="module"></script>
-    <!-- Sample Prompts Script -->
-    <script src="js/sample-prompts.js"></script>
+    <script src="js/sample-prompts.js"></script> <!-- Ensure this file exists or remove if not used -->
     <script src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js" type="module"></script>
 
-    <!-- Audio Elements -->
     <script>
         tailwind.config = {
             theme: {
@@ -30,58 +26,102 @@
                         poppins: ['Poppins', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#4A90E2',
-                        secondary: '#34495E',
-                        accent: '#2ECC71',
+                        primary: '#4A90E2', // Main Blue
+                        secondary: '#34495E', // Dark Blue-Gray
+                        accent: '#2ECC71', // Green
+                        light: '#F8F9FA', // Very Light Gray
+                        'page-bg': '#FFFFFF', // White
+                        'section-bg-subtle': '#F9FAFB', // Slightly off-white
+                        dark: '#2c3e50' // Darker Blue-Gray
                     },
                     animation: {
-                        'fade-in-up': 'fadeInUp 0.5s ease-out',
-                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'fade-in-up': 'fadeInUp 0.7s ease-out forwards',
+                        'fade-in': 'fadeIn 0.7s ease-out forwards',
+                        'slide-in-right': 'slideInRight 0.4s ease-out forwards',
+                        'slide-in-left': 'slideInLeft 0.4s ease-out forwards',
+                        'pulse-subtle': 'pulseSubtle 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-in-notification': 'slideInNotification 0.4s ease-out forwards',
+                        'pulse-alert': 'pulseAlert 1.8s infinite ease-in-out',
+                        'bounce-subtle': 'bounceSubtle 1s infinite',
                     },
                     keyframes: {
                         fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
                         },
                         fadeIn: {
                             '0%': { opacity: '0' },
                             '100%': { opacity: '1' },
                         },
+                        slideInRight: {
+                            from: { transform: 'translateX(30px)', opacity: '0' },
+                            to: { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        slideInLeft: {
+                            from: { transform: 'translateX(-30px)', opacity: '0' },
+                            to: { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        pulseSubtle: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '.7' },
+                        },
+                        slideInNotification: {
+                            from: { transform: 'translateY(25px)', opacity: '0' },
+                            to: { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        pulseAlert: {
+                            '0%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(46, 204, 113, 0.5)' },
+                            '70%': { transform: 'scale(1.05)', boxShadow: '0 0 0 12px rgba(46, 204, 113, 0)' },
+                            '100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(46, 204, 113, 0)' },
+                        },
+                        bounceSubtle: {
+                            '0%, 100%': { transform: 'translateY(-5%)', animationTimingFunction: 'cubic-bezier(0.8,0,1,1)' },
+                            '50%': { transform: 'none', animationTimingFunction: 'cubic-bezier(0,0,0.2,1)' },
+                        }
                     },
+                    boxShadow: {
+                        'subtle': '0 4px 12px rgba(0, 0, 0, 0.05)',
+                        'card': '0 6px 16px rgba(0, 0, 0, 0.07)',
+                        'card-hover': '0 12px 28px rgba(74, 144, 226, 0.12), 0 8px 12px rgba(74, 144, 226, 0.08)',
+                        'glow-primary': '0 0 30px rgba(74, 144, 226, 0.35)',
+                        'glow-accent': '0 0 25px rgba(46, 204, 113, 0.3)',
+                        'nav-scroll': '0 4px 12px rgba(0, 0, 0, 0.06)',
+                        'chat-bubble': '0 3px 8px rgba(0, 0, 0, 0.08)',
+                        'chat-bubble-user': '0 3px 8px rgba(74, 144, 226, 0.2)',
+                    }
                 }
             }
         }
     </script>
     <style>
-        .backdrop-blur-md {
-            backdrop-filter: blur(12px);
-        }
-
-        /* Custom Scrollbar Styles */
+        /* Base Scrollbar Styling */
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
         }
 
         ::-webkit-scrollbar-track {
             background: transparent;
-            border-radius: 10px;
-            margin: 4px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: rgba(74, 144, 226, 0.2);
+            background: rgba(74, 144, 226, 0.25);
             border-radius: 10px;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: rgba(74, 144, 226, 0.4);
+            background: rgba(74, 144, 226, 0.45);
         }
 
-        /* Chat Messages Scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(74, 144, 226, 0.25) transparent;
+        }
+
+        /* Chat Messages Scrollbar Styling */
         #chat-messages::-webkit-scrollbar {
-            width: 4px;
+            width: 6px;
         }
 
         #chat-messages::-webkit-scrollbar-track {
@@ -90,858 +130,1260 @@
         }
 
         #chat-messages::-webkit-scrollbar-thumb {
-            background: rgba(74, 144, 226, 0.15);
-            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 6px;
         }
 
         #chat-messages::-webkit-scrollbar-thumb:hover {
-            background: rgba(74, 144, 226, 0.3);
+            background: rgba(0, 0, 0, 0.25);
         }
 
-        /* Hide scrollbar when not hovering */
         #chat-messages {
             scrollbar-width: thin;
-            scrollbar-color: transparent transparent;
-            transition: scrollbar-color 0.3s ease;
+            scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
         }
 
-        #chat-messages:hover {
-            scrollbar-color: rgba(74, 144, 226, 0.2) transparent;
+        .backdrop-blur-md {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
-        /* Firefox scrollbar */
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(74, 144, 226, 0.2) transparent;
+        .transition-smooth {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Message animations */
-        @keyframes slideInRight {
-            from {
-                transform: translateX(20px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                transform: translateX(-20px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
+        /* Chat Message Animations */
         .user-message {
-            animation: slideInRight 0.3s ease forwards;
+            animation: slide-in-right 0.4s ease-out forwards;
         }
 
         .ai-message {
-            animation: slideInLeft 0.3s ease forwards;
-        }
-
-        /* Smooth transitions */
-        .transition-all {
-            transition-property: all;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transition-duration: 300ms;
-        }
-
-        /* Memory Notification Animation */
-        @keyframes slideIn {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            animation: slide-in-left 0.4s ease-out forwards;
         }
 
         .memory-notification {
-            animation: slideIn 0.3s ease-out forwards;
+            animation: slide-in-notification 0.4s ease-out forwards;
         }
 
-        /* Emoji Picker Styling */
+        /* Emoji Picker Positioning */
         emoji-picker {
-            position: absolute; /* Changed from fixed to absolute */
-            bottom: 100%; /* Position above the button */
+            position: absolute;
+            bottom: calc(100% + 12px);
             right: 0;
-            z-index: 101; /* Ensure it's above chat interface */
+            z-index: 101;
             border: 1px solid #e2e8f0;
-            border-radius: 0.5rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 0.75rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             background-color: white;
+            width: 350px;
+            height: 400px;
         }
 
         /* Memory Modal Styling */
         #memory-modal {
-            display: none; /* Hidden by default */
+            display: none;
             position: fixed;
-            z-index: 1001; /* Above chat widget */
+            z-index: 1001;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+            background-color: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
         }
 
         .memory-modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            border-radius: 0.5rem;
-            width: 80%; /* Could be more or less, depending on screen size */
-            max-height: 70%;
+            background-color: #ffffff;
+            margin: 10% auto;
+            padding: 2.5rem;
+            border: none;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
             overflow-y: auto;
-            position: relative; /* For close button positioning */
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.5s ease-out forwards;
         }
 
         .memory-close-button {
-            color: #aaa;
+            color: #9ca3af;
             position: absolute;
-            top: 10px;
-            right: 15px;
+            top: 1rem;
+            right: 1rem;
             font-size: 28px;
             font-weight: bold;
+            transition: color 0.2s ease, transform 0.2s ease;
+            padding: 0.5rem;
+            line-height: 1;
         }
 
         .memory-close-button:hover,
         .memory-close-button:focus {
-            color: black;
+            color: #1f2937;
             text-decoration: none;
             cursor: pointer;
+            transform: scale(1.1);
         }
 
         #memory-list {
-            padding-left: 20px;
+            padding-left: 1.5rem;
+            margin-top: 1.5rem;
         }
 
         #memory-list li {
             list-style-type: disc;
-            margin-bottom: 5px;
-            word-wrap: break-word; /* prevent long words from breaking layout */
+            margin-bottom: 0.85rem;
+            color: #4b5563;
+            line-height: 1.65;
+            word-wrap: break-word;
         }
 
+        /* Enhanced Focus Visible Styles (Consistent with Tailwind Config) */
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px theme('colors.primary/50');
+        }
 
+        input:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px theme('colors.primary/50');
+        }
+
+        .btn-accent:focus-visible {
+            box-shadow: 0 0 0 3px theme('colors.accent/50');
+        }
+
+        #chat-toggle:focus-visible {
+            box-shadow: 0 0 0 4px theme('colors.white/50');
+        }
+
+        /* Specific focus for floating button */
+
+        /* Line Clamping */
+        .line-clamp-3 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
+
+        .line-clamp-2 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        /* Hero Background Pattern */
+        .hero-bg-pattern::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at top left, rgba(255, 255, 255, 0.06) 0%, transparent 35%), radial-gradient(circle at bottom right, rgba(46, 204, 113, 0.06) 0%, transparent 45%);
+            opacity: 0.7;
+            z-index: 0;
+        }
+
+        .text-shadow {
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Chat Bubble Copy Button Visibility */
+        .message-bubble:hover .copy-btn {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .copy-btn {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+        }
+
+        /* Subtle Background Gradient for sections */
+        .section-gradient-top {
+            background: linear-gradient(to bottom, theme('colors.page-bg'), theme('colors.section-bg-subtle'));
+        }
+
+        .section-gradient-bottom {
+            background: linear-gradient(to top, theme('colors.page-bg'), theme('colors.section-bg-subtle'));
+        }
+
+        /* Chat Input Area Enhancements */
+        #chat-input-wrapper:focus-within {
+            box-shadow: 0 0 0 2px theme('colors.primary/40');
+            border-color: theme('colors.primary/80');
+        }
+
+        #chat-input::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar on textarea */
+        #chat-input {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        /* Hide scrollbar FF/IE */
     </style>
 </head>
 
-<body class="font-poppins">
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center">
-                    <img src="/icon-removebg-preview.png" alt="Dostify Icon" class="w-8 h-8 mr-2 mix-blend-multiply">
-                    <div class="text-3xl font-bold text-primary">Dostify</div>
-                </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#features" class="text-gray-700 hover:text-primary transition-colors">Features</a>
-                    <a href="#how-it-works" class="text-gray-700 hover:text-primary transition-colors">How it Works</a>
-                    <a href="#benefits" class="text-gray-700 hover:text-primary transition-colors">Benefits</a>
-                    <a href="#testimonials" class="text-gray-700 hover:text-primary transition-colors">Testimonials</a>
+<body class="font-poppins bg-page-bg text-secondary antialiased">
+    <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md transition-all duration-300 ease-in-out border-b border-transparent"
+        id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#" class="flex items-center flex-shrink-0 group" aria-label="Dostify Home">
+                    <img src="/icon-removebg-preview.png" alt="Dostify Icon"
+                        class="w-8 h-8 mr-2 transition-transform duration-300 ease-out group-hover:rotate-[10deg] group-hover:scale-110">
+                    <div
+                        class="text-2xl font-bold text-primary transition-colors duration-300 group-hover:text-blue-600">
+                        Dostify</div>
+                </a>
+                <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                    <a href="#features"
+                        class="text-gray-600 hover:text-primary transition-smooth text-sm font-medium">Features</a>
+                    <a href="#how-it-works"
+                        class="text-gray-600 hover:text-primary transition-smooth text-sm font-medium">How it Works</a>
+                    <a href="#benefits"
+                        class="text-gray-600 hover:text-primary transition-smooth text-sm font-medium">Benefits</a>
+                    <a href="#testimonials"
+                        class="text-gray-600 hover:text-primary transition-smooth text-sm font-medium">Testimonials</a>
                     <a href="#download-app"
-                        class="get-started-btn border-2 border-black p-0 text-black px-6 py-2 rounded-lg transition transform hover:-translate-y-0.5">
-                        <i class="fas fa-download text-lg"></i>
+                        class="border border-secondary/60 hover:border-secondary text-secondary hover:bg-secondary/5 px-5 py-2 rounded-lg transition-smooth text-sm font-medium flex items-center gap-2 focus-visible:ring-secondary/50"
+                        aria-label="Download Dostify App">
+                        <i class="fas fa-download text-xs"></i>
                         <span>Download</span>
                     </a>
-
                     <a href="#sample-prompts"
-                        class="get-started-btn border-2 border-accent  bg-accent hover:bg-accent/90 text-white px-6 py-2 rounded-lg transition transform hover:-translate-y-0.5">
+                        class="get-started-btn btn-accent bg-accent hover:bg-accent/90 text-white px-5 py-2 rounded-lg transition-smooth transform hover:-translate-y-0.5 text-sm font-medium shadow-sm hover:shadow-md focus-visible:ring-accent/50"
+                        aria-label="Get Started with Dostify Prompts">
                         Get Started
                     </a>
                 </div>
-                <button class="md:hidden text-gray-700" id="mobile-menu-button">
+                <button
+                    class="md:hidden text-gray-600 hover:text-primary focus:outline-none p-2 rounded-md focus-visible:bg-gray-100 focus-visible:ring-2 focus-visible:ring-primary/50"
+                    id="mobile-menu-button" aria-label="Open Mobile Menu" aria-expanded="false">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-4 py-3 space-y-3 bg-white shadow-lg">
-                <a href="#features" class="block text-gray-700 hover:text-primary">Features</a>
-                <a href="#how-it-works" class="block text-gray-700 hover:text-primary">How it Works</a>
-                <a href="#benefits" class="block text-gray-700 hover:text-primary">Benefits</a>
-                <a href="#testimonials" class="block text-gray-700 hover:text-primary">Testimonials</a>
-                <button
-                    class="get-started-btn w-full bg-accent hover:bg-accent/90 text-white px-6 py-2 rounded-lg transition">
+        <div class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100"
+            id="mobile-menu">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#features"
+                    class="block text-gray-700 hover:text-primary px-3 py-2 rounded-md transition-smooth font-medium">Features</a>
+                <a href="#how-it-works"
+                    class="block text-gray-700 hover:text-primary px-3 py-2 rounded-md transition-smooth font-medium">How
+                    it Works</a>
+                <a href="#benefits"
+                    class="block text-gray-700 hover:text-primary px-3 py-2 rounded-md transition-smooth font-medium">Benefits</a>
+                <a href="#testimonials"
+                    class="block text-gray-700 hover:text-primary px-3 py-2 rounded-md transition-smooth font-medium">Testimonials</a>
+                <a href="#download-app"
+                    class="block w-full text-center border border-secondary/70 text-secondary hover:bg-secondary/5 px-6 py-2.5 rounded-lg transition-smooth my-2 flex items-center justify-center gap-2 font-medium focus-visible:ring-secondary/50"
+                    aria-label="Download Dostify App">
+                    <i class="fas fa-download"></i> <span>Download</span>
+                </a>
+                <a href="#sample-prompts"
+                    class="get-started-btn btn-accent block w-full text-center bg-accent hover:bg-accent/90 text-white px-6 py-2.5 rounded-lg transition-smooth font-medium focus-visible:ring-accent/50"
+                    aria-label="Get Started with Dostify Prompts">
                     Get Started
-                </button>
+                </a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="min-h-screen bg-gradient-to-r from-primary to-secondary pt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
-            <div class="grid md:grid-cols-2 gap-12 items-center w-full py-12">
-                <div class="text-white space-y-6 animate-fade-in-up">
-                    <h1 class="text-4xl md:text-5xl font-bold leading-tight">
+    <header
+        class="min-h-screen bg-gradient-to-br from-primary via-blue-600 to-secondary pt-20 relative overflow-hidden hero-bg-pattern">
+        <div
+            class="absolute top-0 left-0 w-72 h-72 bg-white/5 rounded-full filter blur-3xl opacity-40 -translate-x-20 -translate-y-20">
+        </div>
+        <div
+            class="absolute bottom-0 right-0 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl opacity-30 translate-x-24 translate-y-24">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[calc(100vh-5rem)] flex items-center relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center w-full py-16 md:py-20">
+                <div class="text-white space-y-6 animate-fade-in-up" style="animation-delay: 0.1s;">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-shadow">
                         Your Friendly AI Companion for Every Student's Journey
                     </h1>
-                    <p class="text-lg md:text-xl opacity-90">
-                        Navigate academic pressure, mental health, and career uncertainty with your personal AI
-                        companion
+                    <p class="text-lg md:text-xl opacity-90 max-w-xl">
+                        Navigate academic pressure, mental health challenges, and career uncertainty with Dostify, your
+                        personal AI guide.
                     </p>
-                    <button
-                        class="get-started-btn talk-to-dostify bg-accent hover:bg-accent/90 text-white px-8 py-3 rounded-lg text-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
-                        <span>Talk to Dostify Now</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
+                    <div class="pt-4">
+                        <button
+                            class="get-started-btn talk-to-dostify btn-accent bg-accent hover:brightness-110 text-white px-8 py-3.5 rounded-lg text-lg font-medium transition-smooth transform hover:scale-[1.03] hover:-translate-y-1 shadow-lg hover:shadow-xl flex items-center gap-3 group focus-visible:ring-accent/50"
+                            aria-label="Talk to Dostify Now">
+                            <span>Talk to Dostify Now</span>
+                            <i
+                                class="fas fa-arrow-right transform group-hover:translate-x-1.5 transition-transform duration-300 ease-out"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="hidden md:block animate-fade-in">
-                    <div class="relative group overflow-hidden rounded-lg">
+                <div class="hidden md:block animate-fade-in relative group" style="animation-delay: 0.3s;">
+                    <div
+                        class="absolute -inset-3 bg-gradient-to-r from-white/10 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform group-hover:rotate-[-1.5deg] group-hover:scale-[1.02]">
+                    </div>
+                    <div
+                        class="relative overflow-hidden rounded-xl shadow-xl group-hover:shadow-2xl transition-shadow duration-500">
                         <img src="/image.png" alt="Dostify AI Companion Illustration"
-                            class="w-full transition-transform duration-500 group-hover:scale-105">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-30 transition-opacity duration-500 mix-blend-multiply">
-                        </div>
+                            class="w-full transition-transform duration-500 group-hover:scale-[1.03] rounded-xl">
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Features Section -->
-    <section id="features" class="py-20 bg-gray-50">
+    <section id="features" class="py-24 bg-section-bg-subtle section-gradient-top">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-4">Core Features</h2>
-            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Discover how Dostify can help you excel in your
-                academic journey and maintain a balanced life.</p>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <h2 class="text-4xl font-bold text-center mb-6 text-dark">Core Features</h2>
+            <p class="text-gray-600 text-center text-lg mb-20 max-w-3xl mx-auto leading-relaxed">Discover how Dostify
+                provides tailored support for your academic journey and well-being.</p>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature Card Example (Repeat for others) -->
                 <div
-                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 group">
-                    <div class="text-primary group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-comments text-4xl mb-4"></i>
+                    class="bg-white p-8 rounded-xl shadow-card hover:shadow-card-hover border border-gray-100 group transition-smooth transform hover:-translate-y-1.5 hover:scale-[1.02] hover:border-primary/30 flex flex-col items-start">
+                    <div
+                        class="p-3 rounded-full bg-gradient-to-br from-primary/10 to-blue-500/5 text-primary mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm">
+                        <i class="fas fa-comments text-3xl w-8 h-8 flex items-center justify-center"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Personalized Conversations</h3>
-                    <p class="text-gray-600">Experience meaningful conversations with AI that truly listens and
-                        understands your needs</p>
+                    <h3 class="text-xl font-semibold mb-2 text-dark">Personalized Chats</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Experience meaningful conversations with an AI
+                        that understands your unique student needs.</p>
                 </div>
                 <div
-                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 group">
-                    <div class="text-primary group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-clock text-4xl mb-4"></i>
+                    class="bg-white p-8 rounded-xl shadow-card hover:shadow-card-hover border border-gray-100 group transition-smooth transform hover:-translate-y-1.5 hover:scale-[1.02] hover:border-primary/30 flex flex-col items-start">
+                    <div
+                        class="p-3 rounded-full bg-gradient-to-br from-primary/10 to-blue-500/5 text-primary mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm">
+                        <i class="fas fa-calendar-check text-3xl w-8 h-8 flex items-center justify-center"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Stress & Time Management</h3>
-                    <p class="text-gray-600">Master your schedule and reduce academic pressure with smart management
-                        techniques</p>
+                    <h3 class="text-xl font-semibold mb-2 text-dark">Stress & Time Aid</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Master your schedule and reduce academic pressure
+                        with smart management techniques.</p>
                 </div>
                 <div
-                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 group">
-                    <div class="text-primary group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-heart text-4xl mb-4"></i>
+                    class="bg-white p-8 rounded-xl shadow-card hover:shadow-card-hover border border-gray-100 group transition-smooth transform hover:-translate-y-1.5 hover:scale-[1.02] hover:border-primary/30 flex flex-col items-start">
+                    <div
+                        class="p-3 rounded-full bg-gradient-to-br from-primary/10 to-blue-500/5 text-primary mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm">
+                        <i class="fas fa-heart-pulse text-3xl w-8 h-8 flex items-center justify-center"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Mental Health Support</h3>
-                    <p class="text-gray-600">Access resources and coping strategies for anxiety, depression, and stress
-                    </p>
+                    <h3 class="text-xl font-semibold mb-2 text-dark">Mental Well-being</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Access resources and coping strategies for
+                        anxiety, stress, and maintaining balance.</p>
                 </div>
                 <div
-                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 group">
-                    <div class="text-primary group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-briefcase text-4xl mb-4"></i>
+                    class="bg-white p-8 rounded-xl shadow-card hover:shadow-card-hover border border-gray-100 group transition-smooth transform hover:-translate-y-1.5 hover:scale-[1.02] hover:border-primary/30 flex flex-col items-start">
+                    <div
+                        class="p-3 rounded-full bg-gradient-to-br from-primary/10 to-blue-500/5 text-primary mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm">
+                        <i class="fas fa-graduation-cap text-3xl w-8 h-8 flex items-center justify-center"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Career Guidance</h3>
-                    <p class="text-gray-600">Get clarity on your career path with personalized guidance and preparation
-                    </p>
+                    <h3 class="text-xl font-semibold mb-2 text-dark">Career Guidance</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Explore career paths and get personalized advice
+                        for your future goals.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How it Works Section -->
-    <section id="how-it-works" class="py-20">
+    <section id="how-it-works" class="py-24 bg-page-bg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-12">How Dostify Works</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center">
+            <h2 class="text-4xl font-bold text-center mb-20 text-dark">How Dostify Works</h2>
+            <div class="grid md:grid-cols-3 gap-10 md:gap-16">
+                <!-- Step Card Example (Repeat for others) -->
+                <div
+                    class="text-center flex flex-col items-center p-6 rounded-lg transition-smooth hover:bg-gray-50/80 group">
                     <div
-                        class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center text-xl font-semibold mx-auto mb-4">
+                        class="w-16 h-16 bg-gradient-to-br from-primary to-blue-500 text-white rounded-full flex items-center justify-center text-2xl font-semibold mx-auto mb-6 shadow-lg transform group-hover:scale-105 transition-transform duration-300 ease-out">
                         1</div>
-                    <h3 class="text-xl font-semibold mb-2">Start a Conversation</h3>
-                    <p class="text-gray-600">Click the chat button to begin talking with Dostify</p>
+                    <h3 class="text-xl font-semibold mb-3 text-dark">Start a Chat</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Simply click the chat button anytime you need
+                        support or guidance.</p>
                 </div>
-                <div class="text-center">
+                <div
+                    class="text-center flex flex-col items-center p-6 rounded-lg transition-smooth hover:bg-gray-50/80 group">
                     <div
-                        class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center text-xl font-semibold mx-auto mb-4">
+                        class="w-16 h-16 bg-gradient-to-br from-primary to-blue-500 text-white rounded-full flex items-center justify-center text-2xl font-semibold mx-auto mb-6 shadow-lg transform group-hover:scale-105 transition-transform duration-300 ease-out">
                         2</div>
-                    <h3 class="text-xl font-semibold mb-2">Share Your Thoughts</h3>
-                    <p class="text-gray-600">Tell Dostify what's on your mind</p>
+                    <h3 class="text-xl font-semibold mb-3 text-dark">Share Your Needs</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Tell Dostify what's on your mind – academic
+                        stress, career questions, or just needing to talk.</p>
                 </div>
-                <div class="text-center">
+                <div
+                    class="text-center flex flex-col items-center p-6 rounded-lg transition-smooth hover:bg-gray-50/80 group">
                     <div
-                        class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center text-xl font-semibold mx-auto mb-4">
+                        class="w-16 h-16 bg-gradient-to-br from-primary to-blue-500 text-white rounded-full flex items-center justify-center text-2xl font-semibold mx-auto mb-6 shadow-lg transform group-hover:scale-105 transition-transform duration-300 ease-out">
                         3</div>
-                    <h3 class="text-xl font-semibold mb-2">Get Personalized Support</h3>
-                    <p class="text-gray-600">Receive tailored advice and resources</p>
+                    <h3 class="text-xl font-semibold mb-3 text-dark">Receive Support</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Get personalized advice, helpful resources, and
+                        encouraging responses instantly.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Benefits Section -->
-    <section id="benefits" class="py-20 bg-gray-50">
+    <section id="benefits" class="py-24 bg-section-bg-subtle section-gradient-bottom">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-12">Benefits of Using Dostify</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <i class="fas fa-brain text-4xl text-primary mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Improved Mental Well-being</h3>
-                    <p class="text-gray-600">Develop better emotional resilience and mental health awareness</p>
+            <h2 class="text-4xl font-bold text-center mb-20 text-dark">Benefits of Using Dostify</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Benefit Card Example (Repeat for others) -->
+                <div
+                    class="bg-white p-8 rounded-xl shadow-card border border-gray-100/90 group transition-smooth transform hover:-translate-y-1.5 hover:scale-[1.02] hover:border-accent/40 flex flex-col items-start">
+                    <div
+                        class="p-3 rounded-full bg-gradient-to-br from-accent/10 to-green-500/5 text-accent mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm">
+                        <i class="fas fa-brain text-3xl w-8 h-8 flex items-center justify-center"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-dark">Improved Well-being</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Develop emotional resilience and gain tools for
+                        mental health awareness.</p>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <i class="fas fa-chart-line text-4xl text-primary mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Enhanced Performance</h3>
-                    <p class="text-gray-600">Boost your academic results through better time management</p>
+                <div
+                    class="bg-white p-8 rounded-xl shadow-card border border-gray-100/90 group transition-smooth transform hover:-translate-y-1.5 hover:scale-[1.02] hover:border-accent/40 flex flex-col items-start">
+                    <div
+                        class="p-3 rounded-full bg-gradient-to-br from-accent/10 to-green-500/5 text-accent mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm">
+                        <i class="fas fa-chart-line text-3xl w-8 h-8 flex items-center justify-center"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-dark">Enhanced Focus</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Boost academic performance with better time
+                        management and study strategies.</p>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <i class="fas fa-users text-4xl text-primary mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Social Growth</h3>
-                    <p class="text-gray-600">Build confidence in social situations and relationships</p>
+                <div
+                    class="bg-white p-8 rounded-xl shadow-card border border-gray-100/90 group transition-smooth transform hover:-translate-y-1.5 hover:scale-[1.02] hover:border-accent/40 flex flex-col items-start">
+                    <div
+                        class="p-3 rounded-full bg-gradient-to-br from-accent/10 to-green-500/5 text-accent mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm">
+                        <i class="fas fa-users text-3xl w-8 h-8 flex items-center justify-center"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-dark">Increased Confidence</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Build confidence in social interactions, academic
+                        pursuits, and personal growth.</p>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <i class="fas fa-compass text-4xl text-primary mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Clear Direction</h3>
-                    <p class="text-gray-600">Make informed decisions about your academic and career path</p>
+                <div
+                    class="bg-white p-8 rounded-xl shadow-card border border-gray-100/90 group transition-smooth transform hover:-translate-y-1.5 hover:scale-[1.02] hover:border-accent/40 flex flex-col items-start">
+                    <div
+                        class="p-3 rounded-full bg-gradient-to-br from-accent/10 to-green-500/5 text-accent mb-5 transition-transform duration-300 group-hover:scale-110 shadow-sm">
+                        <i class="fas fa-compass text-3xl w-8 h-8 flex items-center justify-center"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-dark">Clearer Direction</h3>
+                    <p class="text-gray-600 text-base leading-relaxed">Make informed decisions about your academic
+                        journey and future career path.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-20">
+    <section id="testimonials" class="py-24 bg-page-bg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-12">Student Stories</h2>
+            <h2 class="text-4xl font-bold text-center mb-20 text-dark">Student Stories</h2>
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <p class="text-gray-600 mb-6">"Dostify helped me manage my exam anxiety and improve my study habits.
-                        I'm now more confident than ever!"</p>
-                    <div class="flex items-center">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop"
-                            alt="Student testimonial" class="w-12 h-12 rounded-full mr-4 object-cover"
-                            onerror="this.src='https://via.placeholder.com/150x150/4A90E2/FFFFFF?text=S'">
-                        <span class="font-semibold">Sarah K., Computer Science Student</span>
+                <div
+                    class="bg-light p-8 rounded-xl shadow-subtle border border-gray-100 relative overflow-hidden transition-shadow hover:shadow-md">
+                    <i
+                        class="fas fa-quote-left text-primary opacity-5 text-7xl absolute -top-4 -left-4 z-0 transform -rotate-12"></i>
+                    <blockquote class="relative z-10">
+                        <p class="text-gray-700 mb-6 italic text-[17px] leading-relaxed">"Dostify was a game-changer for
+                            managing my exam anxiety. The study tips actually worked, and I feel way more confident
+                            now!"</p>
+                    </blockquote>
+                    <div class="flex items-center relative z-10 mt-6 pt-6 border-t border-gray-200/70">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&q=80"
+                            alt="Student Sarah K."
+                            class="w-12 h-12 rounded-full mr-4 object-cover border-2 border-primary/20 shadow-sm"
+                            onerror="this.src='https://ui-avatars.com/api/?name=S+K&background=4A90E2&color=fff&size=100'">
+                        <div>
+                            <span class="font-semibold text-dark block">Sarah K.</span>
+                            <span class="text-sm text-gray-500">Computer Science Student</span>
+                        </div>
                     </div>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <p class="text-gray-600 mb-6">"Having Dostify as my companion during late-night study sessions made
-                        me feel less alone. It's like having a friend who's always there."</p>
-                    <div class="flex items-center">
-                        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&h=150&fit=crop"
-                            alt="Student testimonial" class="w-12 h-12 rounded-full mr-4 object-cover"
-                            onerror="this.src='https://via.placeholder.com/150x150/4A90E2/FFFFFF?text=M'">
-                        <span class="font-semibold">Mike R., Engineering Student</span>
+                <div
+                    class="bg-light p-8 rounded-xl shadow-subtle border border-gray-100 relative overflow-hidden transition-shadow hover:shadow-md">
+                    <i
+                        class="fas fa-quote-left text-primary opacity-5 text-7xl absolute -top-4 -left-4 z-0 transform -rotate-12"></i>
+                    <blockquote class="relative z-10">
+                        <p class="text-gray-700 mb-6 italic text-[17px] leading-relaxed">"Honestly, just having Dostify
+                            to vent to during late-night study sessions made a huge difference. It felt less lonely and
+                            kept me motivated."</p>
+                    </blockquote>
+                    <div class="flex items-center relative z-10 mt-6 pt-6 border-t border-gray-200/70">
+                        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&h=100&fit=crop&q=80"
+                            alt="Student Mike R."
+                            class="w-12 h-12 rounded-full mr-4 object-cover border-2 border-primary/20 shadow-sm"
+                            onerror="this.src='https://ui-avatars.com/api/?name=M+R&background=4A90E2&color=fff&size=100'">
+                        <div>
+                            <span class="font-semibold text-dark block">Mike R.</span>
+                            <span class="text-sm text-gray-500">Engineering Student</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="sample-prompts" class="py-20 bg-gray-50">
+    <section id="sample-prompts" class="py-28 bg-section-bg-subtle section-gradient-top">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Ask Dostify</h2>
-                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-                    Try these carefully crafted conversation starters to get started with Dostify and explore how it can
-                    assist you in academics, mental well-being, and personal growth.
+            <div class="text-center mb-24">
+                <h2 class="text-4xl font-bold mb-5 text-dark">Not Sure Where to Start?</h2>
+                <p class="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">
+                    Try these conversation starters! Click a card to instantly send the prompt to Dostify and begin your
+                    chat.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Study Planning Card -->
-                <div
-                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[200px]">
-                    <div>
-                        <div class="flex items-center mb-6">
-                            <span class="text-3xl mr-3">📚</span>
-                            <h3 class="text-xl font-semibold text-blue-600">Study Planning</h3>
-                        </div>
-                        <p class="text-gray-600 mb-6 text-lg leading-relaxed line-clamp-2">
-                            Help me create a study schedule for my finals in Data Structures, Algorithms, and Database
-                            Management.
-                        </p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12 [perspective:1000px]">
+                <!-- Prompt Card Example (Repeat for others with different colors/icons) -->
+                <div class="bg-white p-8 rounded-2xl shadow-card border border-transparent group transition-all duration-500 ease-out flex flex-col min-h-[270px] hover:shadow-xl hover:border-blue-200/80 hover:[transform:rotateX(4deg)_translateZ(15px)] cursor-pointer relative overflow-hidden prompt-card"
+                    data-prompt-target
+                    data-prompt="Help me create a realistic study schedule for my upcoming finals in Data Structures, Algorithms, and Database Management. I have about two weeks.">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-blue-50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     </div>
-                    <button
-                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors duration-200 group"
-                        data-prompt="Help me create a study schedule for my finals in Data Structures, Algorithms, and Database Management.">
-                        Try this
-                    </button>
+                    <div class="relative z-10 flex flex-col flex-grow">
+                        <div class="flex items-start mb-5">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mr-4 flex-shrink-0 mt-1 shadow-sm border border-blue-200/50 group-hover:scale-105 transition-transform">
+                                <span class="text-2xl">📚</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-blue-700 mb-1">Study Planning</h3>
+                                <p class="text-gray-500 text-sm">Prepare for finals</p>
+                            </div>
+                        </div>
+                        <div class="flex-grow mb-6">
+                            <p class="text-gray-700 text-base leading-relaxed line-clamp-3">Help me create a realistic
+                                study schedule for my upcoming finals in Data Structures, Algorithms, and Database
+                                Management. I have about two weeks.</p>
+                        </div>
+                        <div
+                            class="mt-auto pt-4 border-t border-gray-100 group-hover:border-blue-100/80 transition-colors duration-300">
+                            <p
+                                class="text-blue-600 font-medium text-sm flex items-center justify-center group-hover:text-blue-700 transition-colors">
+                                Try this prompt <i
+                                    class="fas fa-arrow-right text-xs ml-2 transform group-hover:translate-x-1 transition-transform duration-200"></i>
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Emotional Support Card -->
-                <div
-                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[200px]">
-                    <div>
-                        <div class="flex items-center mb-6">
-                            <span class="text-3xl mr-3">💬</span>
-                            <h3 class="text-xl font-semibold text-red-600">Emotional Support</h3>
-                        </div>
-                        <p class="text-gray-600 mb-6 text-lg leading-relaxed line-clamp-2">
-                            I failed an exam and feel like giving up. Can you motivate me to try again?
-                        </p>
+                <div class="bg-white p-8 rounded-2xl shadow-card border border-transparent group transition-all duration-500 ease-out flex flex-col min-h-[270px] hover:shadow-xl hover:border-red-200/80 hover:[transform:rotateX(4deg)_translateZ(15px)] cursor-pointer relative overflow-hidden prompt-card"
+                    data-prompt-target
+                    data-prompt="I just failed an important exam and I'm feeling really discouraged, almost like giving up. Can you help motivate me?">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-red-50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     </div>
-                    <button
-                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors duration-200 group"
-                        data-prompt="I failed an exam and feel like giving up. Can you motivate me to try again?">
-                        Try this
-                    </button>
+                    <div class="relative z-10 flex flex-col flex-grow">
+                        <div class="flex items-start mb-5">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center mr-4 flex-shrink-0 mt-1 shadow-sm border border-red-200/50 group-hover:scale-105 transition-transform">
+                                <span class="text-2xl">💬</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-red-700 mb-1">Emotional Support</h3>
+                                <p class="text-gray-500 text-sm">Feeling down?</p>
+                            </div>
+                        </div>
+                        <div class="flex-grow mb-6">
+                            <p class="text-gray-700 text-base leading-relaxed line-clamp-3">I just failed an important
+                                exam and I'm feeling really discouraged, almost like giving up. Can you help motivate
+                                me?</p>
+                        </div>
+                        <div
+                            class="mt-auto pt-4 border-t border-gray-100 group-hover:border-red-100/80 transition-colors duration-300">
+                            <p
+                                class="text-red-600 font-medium text-sm flex items-center justify-center group-hover:text-red-700 transition-colors">
+                                Try this prompt <i
+                                    class="fas fa-arrow-right text-xs ml-2 transform group-hover:translate-x-1 transition-transform duration-200"></i>
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Career Guidance Card -->
-                <div
-                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[200px]">
-                    <div>
-                        <div class="flex items-center mb-6">
-                            <span class="text-3xl mr-3">🎓</span>
-                            <h3 class="text-xl font-semibold text-yellow-600">Career Guidance</h3>
-                        </div>
-                        <p class="text-gray-600 mb-6 text-lg leading-relaxed line-clamp-2">
-                            What career paths can I explore if I’m interested in technology and coding?
-                        </p>
+                <div class="bg-white p-8 rounded-2xl shadow-card border border-transparent group transition-all duration-500 ease-out flex flex-col min-h-[270px] hover:shadow-xl hover:border-yellow-200/80 hover:[transform:rotateX(4deg)_translateZ(15px)] cursor-pointer relative overflow-hidden prompt-card"
+                    data-prompt-target
+                    data-prompt="I'm interested in technology and enjoy coding, but I'm not sure what specific career paths are available. Can you give me some ideas?">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-yellow-50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     </div>
-                    <button
-                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-yellow-50 text-yellow-600 rounded-lg hover:bg-yellow-100 transition-colors duration-200 group"
-                        data-prompt="What career paths can I explore if I’m interested in technology and coding?">
-                        Try this
-                    </button>
+                    <div class="relative z-10 flex flex-col flex-grow">
+                        <div class="flex items-start mb-5">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-yellow-100 text-yellow-700 flex items-center justify-center mr-4 flex-shrink-0 mt-1 shadow-sm border border-yellow-200/50 group-hover:scale-105 transition-transform">
+                                <span class="text-2xl">🎓</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-yellow-700 mb-1">Career Guidance</h3>
+                                <p class="text-gray-500 text-sm">Explore future paths</p>
+                            </div>
+                        </div>
+                        <div class="flex-grow mb-6">
+                            <p class="text-gray-700 text-base leading-relaxed line-clamp-3">I'm interested in technology
+                                and enjoy coding, but I'm not sure what specific career paths are available. Can you
+                                give me some ideas?</p>
+                        </div>
+                        <div
+                            class="mt-auto pt-4 border-t border-gray-100 group-hover:border-yellow-100/80 transition-colors duration-300">
+                            <p
+                                class="text-yellow-700 font-medium text-sm flex items-center justify-center group-hover:text-yellow-800 transition-colors">
+                                Try this prompt <i
+                                    class="fas fa-arrow-right text-xs ml-2 transform group-hover:translate-x-1 transition-transform duration-200"></i>
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Personalized Motivation Card -->
-                <div
-                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[200px]">
-                    <div>
-                        <div class="flex items-center mb-6">
-                            <span class="text-3xl mr-3">🏏</span>
-                            <h3 class="text-xl font-semibold text-orange-600">Personalized Motivation</h3>
-                        </div>
-                        <p class="text-gray-600 mb-6 text-lg leading-relaxed line-clamp-2">
-                            I love cricket. Can you share how Virat Kohli handles pressure to inspire me in my studies?
-                        </p>
+                <div class="bg-white p-8 rounded-2xl shadow-card border border-transparent group transition-all duration-500 ease-out flex flex-col min-h-[270px] hover:shadow-xl hover:border-orange-200/80 hover:[transform:rotateX(4deg)_translateZ(15px)] cursor-pointer relative overflow-hidden prompt-card"
+                    data-prompt-target
+                    data-prompt="I'm a huge cricket fan. Can you use examples of how Virat Kohli handles pressure to give me some inspiration for my studies?">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-orange-50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     </div>
-                    <button
-                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-orange-50 text-orange-600 rounded-lg hover:bg-orange-100 transition-colors duration-200 group"
-                        data-prompt="I love cricket. Can you share how Virat Kohli handles pressure to inspire me in my studies?">
-                        Try this
-                    </button>
+                    <div class="relative z-10 flex flex-col flex-grow">
+                        <div class="flex items-start mb-5">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center mr-4 flex-shrink-0 mt-1 shadow-sm border border-orange-200/50 group-hover:scale-105 transition-transform">
+                                <span class="text-2xl">🏏</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-orange-700 mb-1">Personalized Motivation</h3>
+                                <p class="text-gray-500 text-sm">Relatable inspiration</p>
+                            </div>
+                        </div>
+                        <div class="flex-grow mb-6">
+                            <p class="text-gray-700 text-base leading-relaxed line-clamp-3">I'm a huge cricket fan. Can
+                                you use examples of how Virat Kohli handles pressure to give me some inspiration for my
+                                studies?</p>
+                        </div>
+                        <div
+                            class="mt-auto pt-4 border-t border-gray-100 group-hover:border-orange-100/80 transition-colors duration-300">
+                            <p
+                                class="text-orange-600 font-medium text-sm flex items-center justify-center group-hover:text-orange-700 transition-colors">
+                                Try this prompt <i
+                                    class="fas fa-arrow-right text-xs ml-2 transform group-hover:translate-x-1 transition-transform duration-200"></i>
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Mental Health Support Card -->
-                <div
-                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[200px]">
-                    <div>
-                        <div class="flex items-center mb-6">
-                            <span class="text-3xl mr-3">🧘‍♀️</span>
-                            <h3 class="text-xl font-semibold text-purple-600">Mental Health</h3>
-                        </div>
-                        <p class="text-gray-600 mb-6 text-lg leading-relaxed line-clamp-2">
-                            I feel anxious and can’t focus on my studies. Can you help me calm down and concentrate
-                            better?
-                        </p>
+                <div class="bg-white p-8 rounded-2xl shadow-card border border-transparent group transition-all duration-500 ease-out flex flex-col min-h-[270px] hover:shadow-xl hover:border-purple-200/80 hover:[transform:rotateX(4deg)_translateZ(15px)] cursor-pointer relative overflow-hidden prompt-card"
+                    data-prompt-target
+                    data-prompt="I'm feeling really anxious right now and can't seem to focus on studying. Can you suggest a quick technique to help me calm down?">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-purple-50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     </div>
-                    <button
-                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100 transition-colors duration-200 group"
-                        data-prompt="I feel anxious and can’t focus on my studies. Can you help me calm down and concentrate better?">
-                        Try this
-                    </button>
+                    <div class="relative z-10 flex flex-col flex-grow">
+                        <div class="flex items-start mb-5">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center mr-4 flex-shrink-0 mt-1 shadow-sm border border-purple-200/50 group-hover:scale-105 transition-transform">
+                                <span class="text-2xl">🧘‍♀️</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-purple-700 mb-1">Mental Health Moment</h3>
+                                <p class="text-gray-500 text-sm">Quick calming technique</p>
+                            </div>
+                        </div>
+                        <div class="flex-grow mb-6">
+                            <p class="text-gray-700 text-base leading-relaxed line-clamp-3">I'm feeling really anxious
+                                right now and can't seem to focus on studying. Can you suggest a quick technique to help
+                                me calm down?</p>
+                        </div>
+                        <div
+                            class="mt-auto pt-4 border-t border-gray-100 group-hover:border-purple-100/80 transition-colors duration-300">
+                            <p
+                                class="text-purple-600 font-medium text-sm flex items-center justify-center group-hover:text-purple-700 transition-colors">
+                                Try this prompt <i
+                                    class="fas fa-arrow-right text-xs ml-2 transform group-hover:translate-x-1 transition-transform duration-200"></i>
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Social Skills Card -->
-                <div
-                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[200px]">
-                    <div>
-                        <div class="flex items-center mb-6">
-                            <span class="text-3xl mr-3">👫</span>
-                            <h3 class="text-xl font-semibold text-teal-600">Social Skills</h3>
-                        </div>
-                        <p class="text-gray-600 mb-6 text-lg leading-relaxed line-clamp-2">
-                            I’m shy and find it hard to talk to classmates. Can you give me tips on how to start a
-                            conversation?
-                        </p>
+                <div class="bg-white p-8 rounded-2xl shadow-card border border-transparent group transition-all duration-500 ease-out flex flex-col min-h-[270px] hover:shadow-xl hover:border-teal-200/80 hover:[transform:rotateX(4deg)_translateZ(15px)] cursor-pointer relative overflow-hidden prompt-card"
+                    data-prompt-target
+                    data-prompt="I'm naturally shy and find it hard to start conversations with classmates for group projects. Can you give me some simple icebreakers?">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-teal-50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     </div>
-                    <button
-                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-teal-50 text-teal-600 rounded-lg hover:bg-teal-100 transition-colors duration-200 group"
-                        data-prompt="I’m shy and find it hard to talk to classmates. Can you give me tips on how to start a conversation?">
-                        Try this
-                    </button>
-                </div>
-
-                <!-- Time Management Card -->
-                <div
-                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[200px]">
-                    <div>
-                        <div class="flex items-center mb-6">
-                            <span class="text-3xl mr-3">⏰</span>
-                            <h3 class="text-xl font-semibold text-indigo-600">Time Management</h3>
+                    <div class="relative z-10 flex flex-col flex-grow">
+                        <div class="flex items-start mb-5">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center mr-4 flex-shrink-0 mt-1 shadow-sm border border-teal-200/50 group-hover:scale-105 transition-transform">
+                                <span class="text-2xl">👫</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-teal-700 mb-1">Social Skills</h3>
+                                <p class="text-gray-500 text-sm">Conversation starters</p>
+                            </div>
                         </div>
-                        <p class="text-gray-600 mb-6 text-lg leading-relaxed line-clamp-2">
-                            I'm struggling to balance study time with extracurricular activities. How can I manage my time better?
-                        </p>
-                    </div>
-                    <button
-                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors duration-200 group"
-                        data-prompt="I'm struggling to balance study time with extracurricular activities. How can I manage my time better?">
-                        Try this
-                    </button>
-                </div>
-
-                <!-- Exam Preparation Card -->
-                <div
-                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[200px]">
-                    <div>
-                        <div class="flex items-center mb-6">
-                            <span class="text-3xl mr-3">📝</span>
-                            <h3 class="text-xl font-semibold text-pink-600">Exam Preparation</h3>
+                        <div class="flex-grow mb-6">
+                            <p class="text-gray-700 text-base leading-relaxed line-clamp-3">I'm naturally shy and find
+                                it hard to start conversations with classmates for group projects. Can you give me some
+                                simple icebreakers?</p>
                         </div>
-                        <p class="text-gray-600 mb-6 text-lg leading-relaxed line-clamp-2">
-                            Suggest effective strategies for preparing for a major exam in a week.
-                        </p>
-                    </div>
-                    <button
-                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-pink-50 text-pink-600 rounded-lg hover:bg-pink-100 transition-colors duration-200 group"
-                        data-prompt="Suggest effective strategies for preparing for a major exam in a week.">
-                        Try this
-                    </button>
-                </div>
-
-                <!-- Motivation & Goal Setting Card -->
-                <div
-                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[200px]">
-                    <div>
-                        <div class="flex items-center mb-6">
-                            <span class="text-3xl mr-3">🚀</span>
-                            <h3 class="text-xl font-semibold text-lime-600">Motivation & Goals</h3>
+                        <div
+                            class="mt-auto pt-4 border-t border-gray-100 group-hover:border-teal-100/80 transition-colors duration-300">
+                            <p
+                                class="text-teal-600 font-medium text-sm flex items-center justify-center group-hover:text-teal-700 transition-colors">
+                                Try this prompt <i
+                                    class="fas fa-arrow-right text-xs ml-2 transform group-hover:translate-x-1 transition-transform duration-200"></i>
+                            </p>
                         </div>
-                        <p class="text-gray-600 mb-6 text-lg leading-relaxed line-clamp-2">
-                            Help me set realistic academic goals for this semester and stay motivated to achieve them.
-                        </p>
                     </div>
-                    <button
-                        class="try-this-btn flex items-center justify-center w-full py-3 px-4 bg-lime-50 text-lime-600 rounded-lg hover:bg-lime-100 transition-colors duration-200 group"
-                        data-prompt="Help me set realistic academic goals for this semester and stay motivated to achieve them.">
-                        Try this
-                    </button>
                 </div>
-
-            
             </div>
         </div>
     </section>
 
-    <!-- App Download Section -->
-    <section id="download-app" class="py-10 bg-gradient-to-r from-primary to-secondary">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-12 items-center ">
-                <!-- Left Content -->
-                <div class="text-white space-y-6">
-                    <h2 class="text-4xl font-bold leading-tight">Download Dostify App</h2>
-                    <p class="text-lg opacity-90">Take your AI companion with you everywhere. Get instant support,
-                        motivation, and guidance right from your pocket.</p>
+    <section id="download-app"
+        class="py-28 bg-gradient-to-br from-primary via-blue-600 to-secondary relative overflow-hidden">
+        <div
+            class="absolute top-1/4 left-[-100px] w-96 h-96 bg-white/5 rounded-full filter blur-3xl opacity-30 animate-pulse-subtle">
+        </div>
+        <div
+            class="absolute bottom-1/4 right-[-150px] w-[500px] h-[500px] bg-accent/5 rounded-full filter blur-3xl opacity-20 animate-pulse-subtle animation-delay-1000">
+        </div>
 
-                    <!-- Features List -->
-                    <div class="space-y-4 my-8">
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-check-circle text-accent text-xl"></i>
-                            <span>24/7 Offline Access</span>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
+                <div class="text-white space-y-7 animate-fade-in-up" style="animation-delay: 0.1s;">
+                    <h2 class="text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-shadow">Get Dostify On
+                        The Go</h2>
+                    <p class="text-lg opacity-90 max-w-lg leading-relaxed">
+                        Take your AI companion anywhere. Get instant support, track progress, and stay motivated right
+                        from your pocket with the Dostify app.
+                    </p>
+
+                    <div class="space-y-5 pt-4">
+                        <div
+                            class="flex items-center space-x-4 group transition-transform hover:scale-[1.02] duration-300">
+                            <div
+                                class="w-8 h-8 flex-shrink-0 bg-accent/20 rounded-full flex items-center justify-center border border-accent/40">
+                                <i class="fas fa-bolt text-accent text-sm"></i>
+                            </div>
+                            <span class="text-base font-medium opacity-95 group-hover:opacity-100">Instant Access,
+                                Anytime</span>
                         </div>
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-check-circle text-accent text-xl"></i>
-                            <span>Voice Commands Support</span>
+                        <div
+                            class="flex items-center space-x-4 group transition-transform hover:scale-[1.02] duration-300">
+                            <div
+                                class="w-8 h-8 flex-shrink-0 bg-accent/20 rounded-full flex items-center justify-center border border-accent/40">
+                                <i class="fas fa-microphone-alt text-accent text-sm"></i>
+                            </div>
+                            <span class="text-base font-medium opacity-95 group-hover:opacity-100">Voice Interaction
+                                Enabled</span>
                         </div>
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-check-circle text-accent text-xl"></i>
-                            <span>Study Progress Tracking</span>
+                        <div
+                            class="flex items-center space-x-4 group transition-transform hover:scale-[1.02] duration-300">
+                            <div
+                                class="w-8 h-8 flex-shrink-0 bg-accent/20 rounded-full flex items-center justify-center border border-accent/40">
+                                <i class="fas fa-bell text-accent text-sm"></i>
+                            </div>
+                            <span class="text-base font-medium opacity-95 group-hover:opacity-100">Personalized
+                                Reminders</span>
                         </div>
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-check-circle text-accent text-xl"></i>
-                            <span>Personalized Notifications</span>
+                        <div
+                            class="flex items-center space-x-4 group transition-transform hover:scale-[1.02] duration-300 opacity-70">
+                            <div
+                                class="w-8 h-8 flex-shrink-0 bg-gray-500/20 rounded-full flex items-center justify-center border border-gray-500/40">
+                                <i class="fas fa-cloud-download-alt text-gray-400 text-sm"></i>
+                            </div>
+                            <span class="text-base font-medium text-gray-300 group-hover:opacity-100">Offline Mode <span
+                                    class="text-xs">(Coming Soon)</span></span>
                         </div>
                     </div>
 
-                    <!-- Download Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <!-- App Store Button (Coming Soon) -->
-                        <a href="#"
-                            class="inline-flex items-center px-4 py-2 bg-black rounded-xl opacity-50 cursor-not-allowed text-sm"
-                            aria-disabled="true">
-                            <div class="flex items-center">
-                                <i class="fab fa-apple text-xl mr-2"></i>
-                                <div class="text-left">
-                                    <div class="text-xs">Coming Soon on the</div>
-                                    <div class="text-base font-semibold">App Store</div>
-                                </div>
+                    <div class="flex flex-col sm:flex-row gap-5 items-start pt-5">
+                        <button
+                            class="inline-flex items-center px-6 py-3.5 bg-white/10 border border-white/20 rounded-xl text-white opacity-60 cursor-not-allowed group w-full sm:w-auto justify-center sm:justify-start transition-opacity hover:opacity-70"
+                            title="Coming Soon to the App Store" disabled aria-disabled="true">
+                            <i class="fab fa-apple text-3xl mr-3 text-gray-400"></i>
+                            <div class="text-left">
+                                <div class="text-xs text-gray-300/80">Coming Soon on</div>
+                                <div class="text-lg font-semibold">App Store</div>
                             </div>
-                        </a>
+                        </button>
 
                         <a href="https://drive.usercontent.google.com/download?id=17s5FY_6OB4FO-X02GOuMum8AZVomeSkc&export=download&confirm=t"
-                            class="relative inline-flex items-center px-4 py-2 bg-black rounded-xl hover:bg-gray-900 transition duration-300 transform hover:-translate-y-1 text-sm">
-
-                            <!-- New Tag with gradient, rotation, and extra left offset -->
+                            class="relative inline-flex items-center px-6 py-3.5 bg-black/60 backdrop-blur-sm border border-white/30 rounded-xl hover:bg-black/70 transition-smooth transform hover:scale-[1.03] hover:-translate-y-1 shadow-lg hover:shadow-2xl group w-full sm:w-auto justify-center sm:justify-start focus-visible:ring-4 focus-visible:ring-accent/40"
+                            aria-label="Download Android APK">
                             <span
-                                class="absolute top-0 transform -translate-y-1/2 rotate-[-15deg] bg-gradient-to-r from-yellow-400 to-red-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg group-hover:scale-90 transition-transform duration-300"
-                                style="right: -10px; font-size: 8px;">
-                                New
+                                class="absolute -top-2.5 -right-2.5 transform bg-gradient-to-r from-yellow-400 to-red-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md group-hover:scale-105 transition-transform duration-300">
+                                NEW APK
                             </span>
-
-                            <div class="flex items-center">
-                                <i class="fas fa-download text-xl mr-2"></i>
-                                <div class="text-left">
-                                    <div class="text-xs">Direct Download for</div>
-                                    <div class="text-base font-semibold">Android APK</div>
-                                    Last Updated on 2025-03-03
-                                </div>
+                            <i class="fas fa-download text-3xl mr-3 text-accent"></i>
+                            <div class="text-left">
+                                <div class="text-xs text-gray-200">Direct Download</div>
+                                <div class="text-lg font-semibold">Android APK</div>
+                                <div class="text-[10px] text-gray-400 mt-0.5">Updated: Jun 15, 2024</div>
                             </div>
                         </a>
-
-
                     </div>
-
-                    <!-- Notice for Future Store Releases -->
-                    <div class="mt-4 text-center text-sm text-white-500">
-                        App Store & Play Store versions coming soon.
-                    </div>
-
-
-                    <!-- Download Stats -->
-                    <!-- <div class="flex gap-8 mt-8">
-                        <div>
-                            <div class="text-3xl font-bold">100K+</div>
-                            <div class="text-sm opacity-80">Downloads</div>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-bold">4.8/5</div>
-                            <div class="text-sm opacity-80">User Rating</div>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-bold">50K+</div>
-                            <div class="text-sm opacity-80">Active Users</div>
-                        </div>
-                    </div> -->
+                    <p class="text-sm text-white/70 pt-2 !mb-0">Google Play Store version coming soon.</p>
                 </div>
 
-
-                <!-- Phone Mockup with Fixed Perspective -->
-                <div class="flex justify-center">
-                    <!-- Container with fixed perspective and angle -->
-                    <div class="relative  md:block" style="transform: perspective(-1000px) rotateY(-6deg);">
-                        <!-- Background Gradient -->
-                        <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-20 rounded-3xl">
+                <div class="hidden md:flex justify-center items-center relative animate-fade-in group"
+                    style="animation-delay: 0.3s;">
+                    <div class="absolute inset-0 flex justify-center items-center">
+                        <div
+                            class="w-full h-full max-w-md max-h-md bg-gradient-radial from-white/10 via-transparent to-transparent rounded-full filter blur-3xl opacity-60 shadow-glow-primary transition-all duration-700 group-hover:opacity-80 group-hover:scale-110">
                         </div>
-
-                        <!-- Phone Mockup Image with Size Control -->
-                        <div class="flex gap-2">
-                            <img src="./app-icon.png" alt="Dostify App Screenshot"
-                                class="relative z-10 mx-auto h-96 max-w-sm rounded-xl shadow-2xl">
-                            <!-- add another image alseo -->
-                            <img src="./app-icon02.png" alt="Dostify App Screenshot"
-                                class="relative z-10 mx-auto h-96 max-w-sm rounded-xl shadow-2xl">
-
+                    </div>
+                    <div class="relative group" style="transform: perspective(1200px) rotateY(-8deg) rotateX(2deg);">
+                        <div
+                            class="absolute -inset-4 bg-white/5 rounded-3xl opacity-50 blur-sm group-hover:opacity-70 transition-opacity duration-500 transform group-hover:rotate-[-1deg]">
                         </div>
-
-
+                        <img src="./app-icon.png" alt="Dostify App Screenshot"
+                            class="relative z-10 h-auto max-h-[540px] w-auto max-w-[280px] rounded-3xl shadow-2xl transition-transform duration-500 group-hover:scale-[1.07] group-hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.3)] border-4 border-gray-800/60"
+                            style="transform: translateZ(15px);">
                     </div>
                 </div>
-
-
             </div>
         </div>
     </section>
 
-    <!-- Footer Section -->
-    <footer class="bg-gradient-to-r from-primary to-secondary text-white  py-12">
+    <footer class="bg-gradient-to-b from-secondary to-dark text-gray-300 py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-semibold mb-4">Dostify</h3>
-                    <p class="text-gray-300">Your AI companion for academic and personal growth</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-12">
+                <div class="col-span-2 lg:col-span-2">
+                    <a href="#" class="flex items-center mb-4 group" aria-label="Dostify Home">
+                        <img src="/icon-removebg-preview.png" alt="Dostify Icon"
+                            class="w-7 h-7 mr-2 transition-transform group-hover:rotate-[15deg] duration-300 ease-out">
+                        <span
+                            class="text-2xl font-semibold text-white group-hover:text-primary transition-colors">Dostify</span>
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed pr-4">Your AI companion for academic success and
+                        personal growth.</p>
                 </div>
-                <div>
-                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
-                    <div class="space-y-2">
-                        <a href="#features" class="block text-gray-300 hover:text-white">Features</a>
-                        <a href="#how-it-works" class="block text-gray-300 hover:text-white">How it Works</a>
-                        <a href="#benefits" class="block text-gray-300 hover:text-white">Benefits</a>
-                        <a href="#testimonials" class="block text-gray-300 hover:text-white">Testimonials</a>
+                <div class="col-span-1">
+                    <h3 class="text-base font-semibold text-white mb-4 tracking-wide uppercase">Quick Links</h3>
+                    <div class="space-y-3">
+                        <a href="#features"
+                            class="block text-gray-400 hover:text-white text-sm transition-smooth hover:translate-x-1">Features</a>
+                        <a href="#how-it-works"
+                            class="block text-gray-400 hover:text-white text-sm transition-smooth hover:translate-x-1">How
+                            it Works</a>
+                        <a href="#benefits"
+                            class="block text-gray-400 hover:text-white text-sm transition-smooth hover:translate-x-1">Benefits</a>
+                        <a href="#download-app"
+                            class="block text-gray-400 hover:text-white text-sm transition-smooth hover:translate-x-1">Download
+                            App</a>
                     </div>
                 </div>
-                <div>
-                    <h3 class="text-xl font-semibold mb-4">Connect With Us</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-300 hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-gray-300 hover:text-white text-2xl"><i class="fab fa-linkedin"></i></a>
+                <div class="col-span-1">
+                    <h3 class="text-base font-semibold text-white mb-4 tracking-wide uppercase">Support</h3>
+                    <div class="space-y-3">
+                        <a href="#"
+                            class="block text-gray-400 hover:text-white text-sm transition-smooth hover:translate-x-1">FAQ</a>
+                        <a href="#"
+                            class="block text-gray-400 hover:text-white text-sm transition-smooth hover:translate-x-1">Contact
+                            Us</a>
+                        <a href="#"
+                            class="block text-gray-400 hover:text-white text-sm transition-smooth hover:translate-x-1">Privacy
+                            Policy</a>
+                        <a href="#"
+                            class="block text-gray-400 hover:text-white text-sm transition-smooth hover:translate-x-1">Terms
+                            of Service</a>
                     </div>
                 </div>
-                <div>
-                    <h3 class="text-xl font-semibold mb-4">Support</h3>
-                    <div class="space-y-2">
-                        <a href="#" class="block text-gray-300 hover:text-white">FAQ</a>
-                        <a href="#" class="block text-gray-300 hover:text-white">Privacy Policy</a>
-                        <a href="#" class="block text-gray-300 hover:text-white">Terms of Service</a>
-                        <a href="#" class="block text-gray-300 hover:text-white">Contact Us</a>
+                <div class="col-span-2 md:col-span-1">
+                    <h3 class="text-base font-semibold text-white mb-4 tracking-wide uppercase">Connect</h3>
+                    <div class="flex space-x-5">
+                        <a href="#" class="text-gray-400 hover:text-primary transition-smooth text-xl hover:scale-110"
+                            aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-pink-500 transition-smooth text-xl hover:scale-110"
+                            aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-smooth text-xl hover:scale-110"
+                            aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-8 text-sm text-gray-300">
-                © 2025 Dostify by Team Dostify. All rights reserved.
-                <!-- © 2024 Dostify by Raiyan Hasan -->
+            <div class="border-t border-gray-700/50 pt-10 text-center text-sm text-gray-500">
+                © 2024 Dostify by Team Dostify. All rights reserved. Built with <i
+                    class="fas fa-heart text-red-500 mx-1 animate-pulse" style="animation-duration: 1.5s;"></i> for
+                students everywhere.
             </div>
         </div>
     </footer>
 
     <!-- Chat Widget -->
-    <div class="fixed bottom-0 right-0 sm:bottom-8 sm:right-8 z-[1000]" id="chat-widget">
-        <!-- Chat Button -->
+    <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[1000]" id="chat-widget">
         <button id="chat-toggle"
-            class="w-16 h-16 right-2 bottom-2 sm:w-18 sm:h-18 bg-gradient-to-r from-accent via-accent/90 to-accent text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center group relative overflow-hidden">
-            <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300">
-            </div>
-            <i class="fas fa-comments text-2xl sm:text-3xl"></i>
-            <span
-                class="absolute top-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></span>
+            class="w-16 h-16 bg-gradient-to-br from-accent via-green-500 to-accent/80 text-white rounded-full shadow-lg hover:shadow-xl transition-smooth transform hover:scale-105 flex items-center justify-center group relative overflow-hidden focus:outline-none animate-pulse-alert"
+            aria-label="Open Dostify Chat" aria-expanded="false">
+            <i class="fas fa-comments text-2xl transition-transform duration-300 group-hover:scale-110"></i>
+            <!-- Add a subtle icon change on open state if desired -->
+            <!-- <i class="fas fa-times text-2xl hidden"></i> -->
         </button>
 
-        <!-- Chat Interface -->
         <div id="chat-interface"
-            class="hidden fixed sm:absolute bottom-0 right-0 w-full sm:w-[400px] h-[100vh] sm:h-[650px] bg-white sm:rounded-2xl shadow-2xl border-0 sm:border border-accent/10 flex flex-col overflow-hidden backdrop-blur-lg">
+            class="hidden fixed sm:absolute bottom-0 right-0 w-full sm:w-[420px] h-[calc(100dvh)] sm:h-[calc(100vh-110px)] max-h-[700px] bg-gradient-to-b from-gray-50 via-white to-white/80 sm:rounded-2xl shadow-2xl border border-gray-200/60 flex flex-col overflow-hidden transition-all duration-300 ease-out origin-bottom-right backdrop-blur-xl"
+            style="bottom: calc(4rem + 1.5rem + 10px); right: 1.5rem; transform: scale(0.95) translateY(10px); opacity: 0;"
+            data-state="closed">
             <!-- Chat Header -->
             <div
-                class="bg-gradient-to-r from-accent via-accent/90 to-accent p-3 sm:p-4 flex items-center justify-between shadow-lg">
-                <!-- Left side: Logo and Text -->
-                <div class="flex items-center gap-2 sm:gap-3">
-                    <!-- Logo container with better mobile scaling -->
+                class="bg-gradient-to-r from-accent/95 via-green-500 to-accent/80 p-3.5 sm:p-4 flex items-center justify-between shadow-sm flex-shrink-0 h-16 border-b border-white/20 relative z-10 sm:rounded-t-2xl">
+                <div class="flex items-center gap-3 min-w-0">
                     <div
-                        class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
+                        class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/30 border-2 border-white/50 flex items-center justify-center shrink-0 p-1 shadow-md overflow-hidden">
                         <img src="./icon-removebg-preview.png" alt="Dostify Logo"
-                            class="w-6 h-6 sm:w-8 sm:h-8 object-contain">
+                            class="w-full h-full object-contain scale-110">
                     </div>
-                    <!-- Text container with overflow protection -->
                     <div class="min-w-0">
-                        <h3 class="text-white font-medium text-sm sm:text-base truncate">Dostify</h3>
+                        <h3 class="text-white font-semibold text-base sm:text-lg truncate drop-shadow-sm">Dostify</h3>
                         <p class="text-white/80 text-xs sm:text-sm truncate">AI Student Companion</p>
                     </div>
                 </div>
-
-                <!-- Right side: Buttons -->
-                <div class="flex gap-1 sm:gap-2">
-                    <!-- Memory Button -->
+                <div class="flex gap-0.5 sm:gap-1">
                     <button id="memory-button"
-                        class="text-white/90 hover:text-white transition-all duration-300 w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/10 flex items-center justify-center"
-                        title="View & Clear Memory">
-                        <i class="fas fa-brain text-sm sm:text-base"></i>
+                        class="text-white/80 hover:text-white transition-smooth w-9 h-9 rounded-full hover:bg-white/20 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:bg-white/25"
+                        title="View & Manage Memory" aria-label="View Memory">
+                        <i class="fas fa-brain text-base"></i>
                     </button>
-                    <!-- Clear Chat Button -->
                     <button id="clear-chat"
-                        class="text-white/90 hover:text-white transition-all duration-300 w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/10 flex items-center justify-center"
-                        title="Clear Chat History">
-                        <i class="fas fa-trash-alt text-sm sm:text-base"></i>
+                        class="text-white/80 hover:text-white transition-smooth w-9 h-9 rounded-full hover:bg-white/20 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:bg-white/25"
+                        title="Clear Chat History" aria-label="Clear Chat">
+                        <i class="fas fa-trash-alt text-base"></i>
                     </button>
-
-                    <!-- Close Button -->
                     <button id="close-chat"
-                        class="text-white/90 hover:text-white transition-all duration-300 w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/10 flex items-center justify-center">
-                        <i class="fas fa-times text-sm sm:text-base"></i>
+                        class="text-white/80 hover:text-white transition-smooth w-9 h-9 rounded-full hover:bg-white/20 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:bg-white/25"
+                        aria-label="Close Chat">
+                        <i class="fas fa-times text-lg"></i>
                     </button>
                 </div>
             </div>
-            <!-- Chat Messages -->
+
+            <!-- Chat Messages Area -->
             <div id="chat-messages"
-                class="flex-1 overflow-y-auto px-4 py-6 space-y-4 bg-gradient-to-b from-gray-50/50 to-white/30 backdrop-blur-sm">
-                <!-- Welcome Message -->
-                <div class="flex items-start gap-3 animate-fade-in">
+                class="flex-1 overflow-y-auto p-4 space-y-5 bg-gradient-to-b from-white/50 via-gray-50/60 to-white/30">
+                <!-- Initial AI Message Example -->
+                <div class="ai-message flex items-start gap-2.5 sm:gap-3 max-w-[88%] group">
                     <div
-                        class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 border border-accent/20">
-                        <img src="./icon-removebg-preview.png" class="w-8 h-8">
+                        class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 border border-accent/20 mt-1 shadow-sm p-0.5">
+                        <img src="./icon-removebg-preview.png" class="w-5 h-5 sm:w-6 sm:h-6">
                     </div>
                     <div
-                        class="bg-white rounded-2xl rounded-tl-sm py-3 px-4 shadow-sm max-w-[85%] border border-gray-100">
-                        <p class="text-gray-700 leading-relaxed text-[15px]">Hey there! 👋 I'm Dostify, your AI
-                            companion. 😊</p>
+                        class="bg-white rounded-xl rounded-tl-none py-2.5 px-3.5 shadow-chat-bubble border border-gray-100 relative message-bubble">
+                        <p class="text-gray-800 leading-relaxed text-sm sm:text-[15px]">Hey there! 👋 I'm Dostify, ready
+                            to help with your studies, well-being, or anything else on your mind. How can I assist you
+                            today? 😊</p>
+                        <button
+                            class="copy-btn absolute -top-2 -right-2 p-1 bg-gray-100 hover:bg-gray-200 rounded-full z-10 border border-gray-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-primary/50"
+                            title="Copy message" aria-label="Copy message">
+                            <i
+                                class="far fa-copy text-[10px] text-gray-600 w-4 h-4 flex items-center justify-center"></i>
+                        </button>
                     </div>
                 </div>
+                <!-- User Message Example -->
+                <div class="user-message flex justify-end items-start gap-2.5 sm:gap-3 group">
+                    <div
+                        class="bg-gradient-to-br from-primary to-blue-500 text-white rounded-xl rounded-tr-none py-2.5 px-3.5 shadow-chat-bubble-user max-w-[88%] relative message-bubble">
+                        <p class="leading-relaxed text-sm sm:text-[15px]">Hi Dostify, I need help with time management.
+                        </p>
+                        <button
+                            class="copy-btn absolute -top-2 -left-2 p-1 bg-blue-600 hover:bg-blue-700 rounded-full z-10 border border-blue-300/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50"
+                            title="Copy message" aria-label="Copy message">
+                            <i
+                                class="far fa-copy text-[10px] text-white/90 w-4 h-4 flex items-center justify-center"></i>
+                        </button>
+                    </div>
+                    <div
+                        class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 border border-gray-300/50 mt-1 shadow-sm text-gray-500 text-base font-medium">
+                        <i class="far fa-user"></i> <!-- Consistent User Icon -->
+                    </div>
+                </div>
+                <!-- Add more example messages if needed -->
             </div>
 
             <!-- Typing Indicator -->
-            <div id="typing-indicator" class="hidden px-4 py-2 bg-white/50 backdrop-blur-sm border-t border-gray-100">
-                <div class="flex items-center gap-3 animate-pulse">
+            <div id="typing-indicator"
+                class="hidden px-4 py-2 bg-white/80 border-t border-gray-100/80 backdrop-blur-sm flex-shrink-0">
+                <div class="flex items-center gap-2.5 sm:gap-3">
                     <div
-                        class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center border border-accent/20">
-                        <img src="./icon-removebg-preview.png" class="w-8 h-8">
+                        class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 border border-accent/20 p-0.5">
+                        <img src="./icon-removebg-preview.png" class="w-5 h-5 sm:w-6 sm:h-6 animate-bounce-subtle">
                     </div>
-                    <div class="bg-white rounded-xl py-2 px-3 shadow-sm max-w-[85%] border border-gray-100">
-                        <div class="flex gap-1">
-                            <div class="w-2 h-2 rounded-full bg-gray-300"></div>
-                            <div class="w-2 h-2 rounded-full bg-gray-300"></div>
-                            <div class="w-2 h-2 rounded-full bg-gray-300"></div>
-                        </div>
-                        <span class="typing-text text-gray-700 text-sm">Dostify is thinking...</span> <!-- Typing indicator text -->
+                    <div
+                        class="flex items-center gap-1.5 bg-gray-100 rounded-full py-1.5 px-3 shadow-sm border border-gray-200">
+                        <div class="w-1.5 h-1.5 rounded-full bg-gray-500 animate-pulse"
+                            style="animation-duration: 1.2s; animation-delay: 0.1s;"></div>
+                        <div class="w-1.5 h-1.5 rounded-full bg-gray-500 animate-pulse"
+                            style="animation-duration: 1.2s; animation-delay: 0.3s;"></div>
+                        <div class="w-1.5 h-1.5 rounded-full bg-gray-500 animate-pulse"
+                            style="animation-duration: 1.2s; animation-delay: 0.5s;"></div>
+                        <span class="typing-text text-gray-700 text-xs sm:text-sm ml-1.5 font-medium">Dostify is
+                            typing...</span> <!-- Changed text -->
                     </div>
                 </div>
             </div>
 
-            <!-- Chat Input -->
-            <div class="p-4 bg-white border-t border-gray-100 relative"> <!-- position relative for emoji picker -->
-                <form id="chat-form" class="flex gap-3 items-center">
-                    <button type="button" id="voice-input"
-                        class="w-11 h-11 rounded-full bg-gray-100 hover:bg-gray-200/80 flex items-center justify-center transition-all duration-300 flex-shrink-0 hover:shadow-md">
-                        <i class="fas fa-microphone text-gray-600"></i>
-                    </button>
-                    <div class="flex-1 relative">
-                        <input type="text" id="chat-input"
-                            class="w-full border border-gray-200 rounded-full px-5 py-3 pr-12 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300 bg-gray-50/50"
-                            placeholder="Send a message...">
+            <!-- Chat Input Form -->
+            <div
+                class="p-3 sm:p-4 bg-white/95 border-t border-gray-200/80 relative flex-shrink-0 backdrop-blur-sm sm:rounded-b-2xl">
+                <form id="chat-form" class="flex gap-2 sm:gap-3 items-end">
+                    <!-- Voice input button removed for now as it's disabled -->
+                    <!--
+                  <button type="button" id="voice-input" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-700 flex items-center justify-center transition-smooth flex-shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Use Voice Input" title="Voice Input (Coming Soon)" disabled>
+                     <i class="fas fa-microphone"></i>
+                 </button>
+                 -->
+                    <div id="chat-input-wrapper"
+                        class="flex-1 relative group border border-gray-300 hover:border-gray-400 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 rounded-xl transition-all duration-200 bg-white shadow-sm flex items-center pr-2">
+                        <textarea id="chat-input" rows="1"
+                            class="flex-1 w-full border-none focus:outline-none focus:ring-0 transition-smooth bg-transparent text-sm resize-none overflow-y-auto max-h-32 py-3 pl-4 placeholder-gray-500 custom-scrollbar"
+                            placeholder="Type your message..." autocomplete="off"
+                            aria-label="Chat input message"></textarea>
                         <button type="button" id="emoji-button"
-                            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 w-8 h-8 flex items-center justify-center">
+                            class="text-gray-400 hover:text-primary transition-colors w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 focus:outline-none focus-visible:ring-1 focus-visible:ring-primary/50 focus-visible:bg-gray-100/50 flex-shrink-0 ml-1"
+                            aria-label="Select Emoji">
                             <i class="far fa-smile text-lg"></i>
                         </button>
-                        <emoji-picker id="emoji-picker" class="hidden"></emoji-picker> <!-- Emoji Picker added here -->
+                        <emoji-picker id="emoji-picker" class="hidden"></emoji-picker>
+                        <!-- Ensure CSS positions this correctly -->
                     </div>
-                    <button type="submit"
-                        class="bg-accent hover:bg-accent/90 text-white p-2 rounded-full transition-all duration-300 w-11 h-11 flex items-center justify-center flex-shrink-0 hover:shadow-md group">
+                    <button type="submit" id="send-button"
+                        class="bg-gradient-to-br from-accent to-green-500 hover:brightness-110 text-white rounded-full transition-all duration-300 w-10 h-10 flex items-center justify-center flex-shrink-0 shadow-md hover:shadow-lg group disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-accent/50 disabled:from-gray-400 disabled:to-gray-500 disabled:shadow-none btn-accent transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-accent/70"
+                        aria-label="Send Message" disabled>
                         <i
-                            class="fas fa-paper-plane text-sm group-hover:scale-110 transition-transform duration-300"></i>
+                            class="fas fa-paper-plane text-sm transition-transform duration-300 group-hover:scale-110 group-disabled:scale-100"></i>
                     </button>
                 </form>
+                <!-- Shift+Enter hint removed for cleaner look, it's standard behavior -->
+                <!-- <div class="text-xs text-gray-400 text-center mt-1.5 px-10 hidden sm:block">Press Shift+Enter for new line</div> -->
             </div>
         </div>
     </div>
 
     <!-- Memory Modal -->
-    <div id="memory-modal" class="memory-modal">
+    <div id="memory-modal" class="memory-modal font-poppins">
         <div class="memory-modal-content">
-            <span class="memory-close-button" id="memory-modal-close">×</span>
-            <h2>Dostify's Memory</h2>
-            <ul id="memory-list">
-                <!-- Memory items will be loaded here by JavaScript -->
-            </ul>
-            <div class="text-center mt-6">
+            <button class="memory-close-button" id="memory-modal-close" aria-label="Close Memory Modal">×</button>
+            <h2 class="text-2xl font-semibold text-dark mb-4">Dostify's Memory</h2>
+            <p class="text-sm text-gray-500 mb-5 leading-relaxed">Dostify remembers key points from our conversation to
+                provide better context. This memory is temporary and stored only in your browser for this session.</p>
+            <div class="bg-gray-50 p-4 rounded-lg max-h-60 overflow-y-auto border border-gray-200/80">
+                <ul id="memory-list" class="space-y-2">
+                    <li class="text-gray-500 italic">Memory is currently empty.</li>
+                </ul>
+            </div>
+            <div class="text-center mt-8 border-t border-gray-200 pt-6">
                 <button id="clear-memory-button"
-                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                    Clear Memory
+                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-2.5 px-6 rounded-lg transition-smooth text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500/50 disabled:opacity-60 disabled:cursor-not-allowed"
+                    aria-label="Clear Dostify's Memory">
+                    <i class="fas fa-trash-alt mr-1.5"></i> Clear Memory
                 </button>
             </div>
         </div>
     </div>
-
 
     <!-- Audio Elements -->
     <audio id="message-sent" src="https://assets.mixkit.co/sfx/preview/mixkit-message-pop-alert-2354.mp3"
         preload="auto"></audio>
     <audio id="message-receive" src="https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3"
         preload="auto"></audio>
+
+    <!-- Main JS Logic -->
+    <script>
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                navbar.classList.add('shadow-nav-scroll', 'border-gray-200/60', 'bg-white/95');
+                navbar.classList.remove('border-transparent', 'bg-white/90');
+            } else {
+                navbar.classList.remove('shadow-nav-scroll', 'border-gray-200/60', 'bg-white/95');
+                navbar.classList.add('border-transparent', 'bg-white/90');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuIcon = mobileMenuButton.querySelector('i');
+        mobileMenuButton.addEventListener('click', () => {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+            mobileMenuIcon.classList.toggle('fa-bars');
+            mobileMenuIcon.classList.toggle('fa-times');
+        });
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenu.classList.add('hidden');
+                mobileMenuIcon.classList.remove('fa-times');
+                mobileMenuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // Chat Input Auto-Resize & Send Button State
+        const chatInput = document.getElementById('chat-input');
+        const sendButton = document.getElementById('send-button');
+        const MAX_TEXTAREA_HEIGHT = 96; // Corresponds to max-h-24
+
+        function adjustTextareaHeight() {
+            chatInput.style.height = 'auto'; // Reset height
+            const scrollHeight = chatInput.scrollHeight;
+            chatInput.style.height = Math.min(scrollHeight, MAX_TEXTAREA_HEIGHT) + 'px';
+            chatInput.style.overflowY = scrollHeight > MAX_TEXTAREA_HEIGHT ? 'auto' : 'hidden';
+        }
+
+        chatInput.addEventListener('input', () => {
+            sendButton.disabled = chatInput.value.trim() === '';
+            adjustTextareaHeight();
+        });
+        adjustTextareaHeight(); // Initial adjustment
+
+        // Chat Interface Toggle Animation
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatInterface = document.getElementById('chat-interface');
+
+        chatToggle.addEventListener('click', () => {
+            const state = chatInterface.getAttribute('data-state');
+            if (state === 'closed') {
+                chatInterface.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    chatInterface.style.transform = 'scale(1) translateY(0)';
+                    chatInterface.style.opacity = '1';
+                });
+                chatInterface.setAttribute('data-state', 'open');
+                chatToggle.setAttribute('aria-expanded', 'true');
+                // Optional: Change toggle button icon
+                // chatToggle.querySelector('.fa-comments').classList.add('hidden');
+                // chatToggle.querySelector('.fa-times').classList.remove('hidden');
+            } else {
+                chatInterface.style.transform = 'scale(0.95) translateY(10px)';
+                chatInterface.style.opacity = '0';
+                // Listen for transition end to add 'hidden' back
+                chatInterface.addEventListener('transitionend', () => {
+                    if (chatInterface.getAttribute('data-state') === 'closed') { // Check state again in case of rapid clicks
+                        chatInterface.classList.add('hidden');
+                    }
+                }, { once: true });
+
+                chatInterface.setAttribute('data-state', 'closed');
+                chatToggle.setAttribute('aria-expanded', 'false');
+                // Optional: Change toggle button icon back
+                // chatToggle.querySelector('.fa-comments').classList.remove('hidden');
+                // chatToggle.querySelector('.fa-times').classList.add('hidden');
+            }
+        });
+
+        // Close Chat Button
+        document.getElementById('close-chat')?.addEventListener('click', () => {
+            if (chatInterface.getAttribute('data-state') === 'open') {
+                chatToggle.click(); // Simulate clicking the toggle to close with animation
+            }
+        });
+
+
+        // Clear Memory Confirmation
+        const clearMemoryBtn = document.getElementById('clear-memory-button');
+        clearMemoryBtn?.addEventListener('click', (event) => {
+            if (!confirm("Are you sure you want to clear Dostify's memory? This action cannot be undone and only affects this browser session.")) {
+                event.preventDefault();
+                return false;
+            }
+            // Actual clearing logic should be in chat.js or main.js
+        });
+
+        // Sample Prompt Card Click Handler
+        document.querySelectorAll('[data-prompt-target]').forEach(card => {
+            card.addEventListener('click', (event) => {
+                // Prevent triggering if a button or link inside the card was clicked
+                if (event.target.closest('button, a')) {
+                    return;
+                }
+
+                const promptText = card.dataset.prompt;
+                if (promptText) {
+                    const chatInputEl = document.getElementById('chat-input');
+                    const chatInterfaceEl = document.getElementById('chat-interface');
+                    const chatToggleBtn = document.getElementById('chat-toggle');
+
+                    // Open chat if closed
+                    if (chatInterfaceEl.getAttribute('data-state') === 'closed') {
+                        chatToggleBtn.click();
+                    }
+
+                    // Wait briefly for chat to potentially open before setting value
+                    setTimeout(() => {
+                        chatInputEl.value = promptText;
+                        chatInputEl.dispatchEvent(new Event('input', { bubbles: true })); // Trigger input event for button state and resize
+                        chatInputEl.focus();
+                        // Optionally send the message automatically:
+                        // document.getElementById('chat-form').requestSubmit();
+                    }, chatInterfaceEl.getAttribute('data-state') === 'closed' ? 350 : 50); // Longer delay if opening
+                }
+            });
+        });
+
+
+        // Copy Message Functionality
+        document.addEventListener('click', function (event) {
+            const button = event.target.closest('.copy-btn');
+            if (button) {
+                const messageBubble = button.closest('.message-bubble');
+                const messageText = messageBubble?.querySelector('p')?.innerText;
+
+                if (messageText) {
+                    navigator.clipboard.writeText(messageText)
+                        .then(() => {
+                            const icon = button.querySelector('i');
+                            const originalIconClass = 'fa-copy';
+                            const successIconClass = 'fa-check';
+                            const originalTitle = button.getAttribute('aria-label') || "Copy message";
+
+                            icon.classList.remove(originalIconClass);
+                            icon.classList.add(successIconClass);
+                            button.setAttribute('aria-label', 'Copied!');
+                            button.classList.add('text-green-500'); // Visual feedback
+
+                            setTimeout(() => {
+                                icon.classList.remove(successIconClass);
+                                icon.classList.add(originalIconClass);
+                                button.setAttribute('aria-label', originalTitle);
+                                button.classList.remove('text-green-500');
+                            }, 1500);
+                        })
+                        .catch(err => {
+                            console.error('Failed to copy text: ', err);
+                            // Optionally show an error state to the user
+                        });
+                }
+            }
+        });
+
+        // Submit Chat on Enter (without Shift)
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (!sendButton.disabled) {
+                    document.getElementById('chat-form').requestSubmit();
+                }
+            }
+        });
+
+
+
+    </script>
+
+
 </body>
 
 </html>

@@ -1027,44 +1027,54 @@
                 </div>
 
                 <!-- Right Column: Phone with App Carousel -->
-                <!-- Right Column: Phone with App Carousel -->
                 <div class="phone-showcase relative h-[800px] w-full flex justify-center items-center">
-                    <!-- Increased showcase height -->
                     <!-- Phone Frame -->
                     <div class="phone-frame relative w-[350px] h-[800px] mx-auto"> <!-- Increased width and height -->
-                        <!-- Phone Device (No Rotation) -->
                         <div
-                            class="phone-device absolute inset-0 bg-gray-900 rounded-[48px] border-8 border-gray-800 shadow-2xl transition-transform duration-500 z-20">
-                            <!-- Adjusted border-radius slightly for proportion -->
+                            class="phone-device absolute inset-0 bg-gray-900 rounded-[36px] border-8 border-gray-800 shadow-2xl transition-transform duration-500 z-20">
                             <!-- Phone Notch -->
                             <div
-                                class="absolute top-0 left-1/2 transform -translate-x-1/2 w-36 h-7 bg-black rounded-b-xl z-30 flex items-center justify-center">
+                                class="absolute top-0 left-1/2 transform -translate-x-1/2 w-36 h-7 bg-black rounded-b-sm z-30 flex items-center justify-center">
                                 <!-- Slightly larger notch -->
                                 <div class="w-14 h-2.5 bg-gray-800 rounded-full"></div>
                             </div>
 
                             <!-- Phone Screen (Carousel Container) -->
                             <div
-                                class="absolute top-7 left-0 right-0 bottom-0 bg-gray-100 overflow-hidden rounded-b-[40px] z-20">
-                                <!-- Adjusted top offset and border-radius -->
+                                class="absolute top-7 left-0 right-0 bottom-0 bg-gray-100 overflow-hidden rounded-b-[36px] z-20">
                                 <!-- Carousel Wrapper -->
                                 <div class="carousel-wrapper relative h-full w-full">
-                                    <!-- Screen 1 -->
+
                                     <!-- Screen 1 -->
                                     <div
                                         class="carousel-screen absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100">
-                                        <img src="./app-icon.png" alt="Dostify App Main Screen"
+                                        <img src="./images/app-icon.png" alt="Dostify App Main Screen"
                                             class="w-full h-full object-cover">
                                     </div>
 
                                     <!-- Screen 2 -->
                                     <div
                                         class="carousel-screen absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0">
-                                        <img src="./app-icon.png" alt="Dostify App Feature Screen"
+                                        <img src="./images/app-icon-02.png" alt="Dostify App Feature Screen"
                                             class="w-full h-full object-cover">
                                     </div>
 
-                                    <!-- Screen 3 (Placeholder) -->
+                                    <!-- Screen 3 -->
+                                    <div
+                                        class="carousel-screen absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0">
+                                        <img src="./images/app-icon-03.png" alt="Dostify App Feature Screen"
+                                            class="w-full h-full object-cover">
+                                    </div>
+
+                                    <!-- Screen 4 -->
+
+                                    <div
+                                        class="carousel-screen absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0">
+                                        <img src="./images/app-icon-04.png" alt="Dostify App Feature Screen"
+                                            class="w-full h-full object-cover">
+                                    </div>
+
+                                    <!-- Screen (Placeholder) -->
                                     <div
                                         class="carousel-screen absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0 bg-gradient-to-br from-blue-500 to-indigo-600">
                                         <div
@@ -1077,20 +1087,7 @@
                                     </div>
 
 
-                                    <!-- Carousel Navigation Dots -->
-                                    <div
-                                        class="carousel-dots absolute bottom-7 left-0 right-0 flex justify-center space-x-2 z-30">
-                                        <!-- Adjusted bottom offset -->
-                                        <button
-                                            class="w-2.5 h-2.5 rounded-full bg-white transition-opacity duration-300"
-                                            aria-label="View slide 1" aria-current="true"></button>
-                                        <button
-                                            class="w-2.5 h-2.5 rounded-full bg-white opacity-50 transition-opacity duration-300"
-                                            aria-label="View slide 2"></button>
-                                        <button
-                                            class="w-2.5 h-2.5 rounded-full bg-white opacity-50 transition-opacity duration-300"
-                                            aria-label="View slide 3"></button>
-                                    </div>
+                           
                                 </div>
                             </div>
 

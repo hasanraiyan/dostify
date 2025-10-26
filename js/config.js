@@ -1,5 +1,5 @@
 const CONFIG = {
-API_URL: '[https://text.pollinations.ai/openai](https://text.pollinations.ai/openai)',
+API_URL: 'https://text.pollinations.ai/openai',
 API_KEY: '',
 MODEL: 'openai-large',
 SYSTEM_PROMPT: `
